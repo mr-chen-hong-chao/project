@@ -1,13 +1,12 @@
 <template>
-  <div id='home'>
-      erer
+  <div id='main'>
+      
  </div>
 </template>
 
 <script>
 export default {
   name: '',
-  
   data() { 
     return {
 
@@ -30,9 +29,4 @@ props:[],
 </script>
 
 <style lang='scss' scoped>
-#home{
-   width: 100%;
-   height: 100%;
-   padding: 0.01rem;
-}
 </style>
