@@ -1,6 +1,6 @@
 <template>
-  <div id=''>
-    
+  <div id='item-banner'>
+      {{banner}}
  </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   components:{
 
   },
-props:[],
+props:['banner'],
   computed:{
 
   },
@@ -29,4 +29,11 @@ props:[],
 </script>
 
 <style lang='scss' scoped>
+#item-banner{
+    width: 100%;
+    border-left: 0.07rem solid red;
+    padding-left: 0.2rem;
+    font-size: 0.3rem;
+    margin: 0.2rem 0rem;
+}
 </style>

@@ -67,8 +67,20 @@ a{
 .input-outline-none{
     outline: none;
 }
-p{
+.text-overflow-ell{
     overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap;
+}
+.flex-around{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.flex-between{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
 }
