@@ -27,7 +27,7 @@
               <img :src="item.img" alt="">
               <div class="info">
                 <h3>{{item.name}}</h3>
-              <p class="text-overflow-ell">{{item.info}}</p>
+              <p class="text-overflow-ell">{{item.detail}}</p>
               </div>
             </li>
           </ul>
@@ -69,32 +69,32 @@ export default {
         {
           img:'./img/swiper1.jpg',
           name:'杨德胜',
-          info:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
+          detail:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
         },
         {
           img:'./img/swiper1.jpg',
           name:'杨德胜',
-          info:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
+          detail:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
         },
         {
           img:'./img/swiper1.jpg',
           name:'杨德胜',
-          info:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
+          detail:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
         },
         {
           img:'./img/swiper1.jpg',
           name:'杨德胜',
-          info:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
+          detail:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
         },
         {
           img:'./img/swiper1.jpg',
           name:'杨德胜',
-          info:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
+          detail:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
         },
         {
           img:'./img/swiper1.jpg',
           name:'杨德胜',
-          info:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
+          detail:'asdsadsadasdasasddosfjhasdlkfhowehjfioeasdasdsadsads',
         },
       ]
     }

@@ -13,6 +13,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+    redirect:'/main',
     children:[
       ...MainRouter
     ]
