@@ -1,0 +1,27 @@
+@charset 'utf-8';
+// 百分百
+@mixin bai{
+    width: 100%;
+    height: 100%;
+}
+// 弹性布局
+@mixin flex-row{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+@mixin flex-clo{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+// 溢出文本省略
+@mixin text-overflow{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
