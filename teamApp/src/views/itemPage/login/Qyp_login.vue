@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="logo">
-      <img src="/logo.png" alt="" />
+      <img src="../../../../public/icon/logo.png" alt="" />
     </div>
     <div class="from">
       <van-form>

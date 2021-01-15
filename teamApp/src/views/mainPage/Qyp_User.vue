@@ -1,12 +1,12 @@
 <template>
   <div id='Qyp_my'>
     <div class="Qyp_top-box">
-      <img src="../../../public/user_bg.ab306a5c.png" alt="">
+      <img src="/icon/user_bg.ab306a5c.png" alt="">
       <div class="Qyp_tab">
         <div class="Qyp_tab_top">
           <div @click="gotoLogin">
             <span><img src="../../../public/icon/to.jpg" alt="" ></span>
-            <img src="../../../public/皇冠-2 拷贝@2x.ca9087bc.png" class="img" alt="">
+            <img src="../../../public/icon/皇冠-2 拷贝@2x.ca9087bc.png" class="img" alt="">
           </div>
           <div>
             <span >15660030263</span>
@@ -50,33 +50,33 @@
         <div class="lesson">
           <p style="font-size: 0.35rem">课程相关</p>
           <van-grid :border="false">
-            <van-grid-item icon="/01.png" text="关注的老师" @click="Qyp_teacher" />
-            <van-grid-item icon="/02.png" text="我的收藏" @click="Qyp_collect" />
+            <van-grid-item icon="./icon/01.png" text="关注的老师" @click="Qyp_teacher" />
+            <van-grid-item icon="./icon/02.png" text="我的收藏" @click="Qyp_collect" />
           </van-grid>
         </div>
         <div class="order">
           <p style="font-size: 0.35rem">订单相关</p>
           <van-grid :border="false">
-            <van-grid-item icon="/03.png" text="课程订单" @click="Qyp_order_lesson" />
-            <van-grid-item icon="/03.png" text="会员订单" @click="Qyp_order_vip" />
-            <van-grid-item icon="/03.png" text="约课订单" @click="Qyp_order_Appointment" />
+            <van-grid-item icon="./icon/03.png" text="课程订单" @click="Qyp_order_lesson" />
+            <van-grid-item icon="./icon/03.png" text="会员订单" @click="Qyp_order_vip" />
+            <van-grid-item icon="./icon/03.png" text="约课订单" @click="Qyp_order_Appointment" />
           </van-grid>
         </div>
         <div class="account">
           <p style="font-size: 0.35rem">我的账户</p>
           <van-grid :border="false">
-            <van-grid-item icon="/04.png" text="优惠券" @click="Qyp_youhui" />
-            <van-grid-item icon="/05.png" text="学习卡" @click="Qyp_style" />
-            <van-grid-item icon="/06.png" text="会员" @click="Qyp_vip" />
+            <van-grid-item icon="./icon/04.png" text="优惠券" @click="Qyp_youhui" />
+            <van-grid-item icon="./icon/05.png" text="学习卡" @click="Qyp_style" />
+            <van-grid-item icon="./icon/06.png" text="会员" @click="Qyp_vip" />
           </van-grid>
         </div>
         <div class="server">
           <p style="font-size: 0.35rem">自助服务</p>
           <van-grid :border="false">
-            <van-grid-item icon="/07.png" text="我的消息" @click="Qyp_msg" />
-            <van-grid-item icon="/08.png" text="意见反馈" @click="Qyp_opinion" />
-            <van-grid-item icon="/09.png" text="在线客服" @click="Qyp_server" />
-            <van-grid-item icon="/10.png" text="设置" @click="Qyp_set" />
+            <van-grid-item icon="./icon/07.png" text="我的消息" @click="Qyp_msg" />
+            <van-grid-item icon="./icon/08.png" text="意见反馈" @click="Qyp_opinion" />
+            <van-grid-item icon="./icon/09.png" text="在线客服" @click="Qyp_server" />
+            <van-grid-item icon="./icon/10.png" text="设置" @click="Qyp_set" />
           </van-grid>
         </div>
       </div>

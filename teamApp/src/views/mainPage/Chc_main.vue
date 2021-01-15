@@ -23,7 +23,7 @@
         <banner :banner="'名师阵容'"></banner>
         <div class="teacher list">
           <ul>
-            <li v-for="(item,i) in teacher" :key="i">
+            <li v-for="(item,i) in teacher" :key="i" @click="$router.push('/detail')">
               <img :src="item.img" alt="">
               <div class="info">
                 <h3>{{item.name}}</h3>

@@ -1,6 +1,6 @@
 <template>
   <div id="app-banner">
-      <van-nav-bar :title="banner" left-text="返回" left-arrow @click-left='back'>
+      <van-nav-bar class="opacity" :title="banner" left-text="返回" left-arrow @click-left='back'>
         <template #right >
           <van-icon v-show="show" name="search" size="18" />
         </template>
@@ -30,6 +30,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 #app-banner{
+  
     
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div id='history'>
-      约课记录
+  <div id='practice'>
+      练习页面
  </div>
 </template>
 
