@@ -1,14 +1,18 @@
 <template>
   <div id='Qyp_my'>
     <div class="Qyp_top-box">
-      <img src="../../../public/user_bg.ab306a5c.png" alt="">
+      <img src="/icon/user_bg.ab306a5c.png" alt="">
       <div class="Qyp_tab">
         <div class="Qyp_tab_top">
-          <div>
-            <img src="../../../public/皇冠-2 拷贝@2x.ca9087bc.png" alt="">
+          <div @click="gotoLogin">
+            <span><img src="../../../public/icon/to.jpg" alt="" ></span>
+            <img src="../../../public/icon/皇冠-2 拷贝@2x.ca9087bc.png" class="img" alt="">
           </div>
           <div>
-            15660030263
+            <span >15660030263</span>
+            <span >
+              <van-icon name="edit" size="0.5rem" @click="Qyp_msg_edit"/>
+            </span>
           </div>
         </div>
         <div class="Qyp_tab_bottom">
@@ -46,33 +50,33 @@
         <div class="lesson">
           <p style="font-size: 0.35rem">课程相关</p>
           <van-grid :border="false">
-            <van-grid-item icon="/01.png" text="关注的老师" />
-            <van-grid-item icon="/02.png" text="我的收藏" />
+            <van-grid-item icon="./icon/01.png" text="关注的老师" @click="Qyp_teacher" />
+            <van-grid-item icon="./icon/02.png" text="我的收藏" @click="Qyp_collect" />
           </van-grid>
         </div>
         <div class="order">
           <p style="font-size: 0.35rem">订单相关</p>
           <van-grid :border="false">
-            <van-grid-item icon="/03.png" text="课程订单" />
-            <van-grid-item icon="/03.png" text="会员订单" />
-            <van-grid-item icon="/03.png" text="约课订单" />
+            <van-grid-item icon="./icon/03.png" text="课程订单" @click="Qyp_order_lesson" />
+            <van-grid-item icon="./icon/03.png" text="会员订单" @click="Qyp_order_vip" />
+            <van-grid-item icon="./icon/03.png" text="约课订单" @click="Qyp_order_Appointment" />
           </van-grid>
         </div>
         <div class="account">
           <p style="font-size: 0.35rem">我的账户</p>
           <van-grid :border="false">
-            <van-grid-item icon="/04.png" text="优惠券" />
-            <van-grid-item icon="/05.png" text="学习卡" />
-            <van-grid-item icon="/06.png" text="会员" />
+            <van-grid-item icon="./icon/04.png" text="优惠券" @click="Qyp_youhui" />
+            <van-grid-item icon="./icon/05.png" text="学习卡" @click="Qyp_style" />
+            <van-grid-item icon="./icon/06.png" text="会员" @click="Qyp_vip" />
           </van-grid>
         </div>
         <div class="server">
           <p style="font-size: 0.35rem">自助服务</p>
           <van-grid :border="false">
-            <van-grid-item icon="/07.png" text="我的消息" />
-            <van-grid-item icon="/08.png" text="意见反馈" />
-            <van-grid-item icon="/09.png" text="在线客服" />
-            <van-grid-item icon="/10.png" text="设置" />
+            <van-grid-item icon="./icon/07.png" text="我的消息" @click="Qyp_msg" />
+            <van-grid-item icon="./icon/08.png" text="意见反馈" @click="Qyp_opinion" />
+            <van-grid-item icon="./icon/09.png" text="在线客服" @click="Qyp_server" />
+            <van-grid-item icon="./icon/10.png" text="设置" @click="Qyp_set" />
           </van-grid>
         </div>
       </div>
@@ -100,25 +104,114 @@
 
     },
     methods: {
+      //点击头像登录
+      gotoLogin() {
+        this.$router.push({
+          path: '/login'
+        })
+      },
+      //点击关注的老师
+      Qyp_teacher() {
+        this.$router.push({
+          path: '/Qyp_teacher'
+        })
+      },
+      ////我的收藏
+      Qyp_collect() {
+        this.$router.push({
+          path: '/Qyp_collect'
+        })
+      },
+      //课程订单
+      Qyp_order_lesson() {
+        this.$router.push({
+          path: '/Qyp_order_lesson'
+        })
+      },
+      // 会员订单
+      Qyp_order_vip() {
+        this.$router.push({
+          path: '/Qyp_order_vip'
+        })
+      },
+      //约课订单
+      Qyp_order_Appointment() {
+        this.$router.push({
+          path: '/Qyp_order_Appointment'
+        })
+      },
+      //优惠卷
+      Qyp_youhui() {
+        this.$router.push({
+          path: '/Qyp_youhui'
+        })
+      },
+      //qyp学习卡
+      Qyp_style() {
+        this.$router.push({
+          path: '/Qyp_style'
+        })
+      },
+      //qyp会员
+      Qyp_vip() {
+        this.$router.push({
+          path: '/Qyp_vip'
+        })
+      },
+
+      //qyp我的消息
+      Qyp_msg() {
+        this.$router.push({
+          path: '/Qyp_msg'
+        })
+      },
+      //qyp意见反馈
+      Qyp_opinion() {
+        this.$router.push({
+          path: '/Qyp_opinion'
+        })
+      },
+      //qyp在线客服
+      Qyp_server() {
+        this.$router.push({
+          path: '/Qyp_server'
+        })
+      },
+      //qyp设置
+      Qyp_set() {
+        this.$router.push({
+          path: '/Qyp_set'
+        })
+      },
+
+      //信息编写
+      Qyp_msg_edit(){
+        this.$router.push({
+          path:"/Qyp_msg_edit"
+        })
+      }
+
+
+
 
     },
   }
 </script>
 
 <style lang='scss' scoped>
-
-
   #Qyp_my {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
     overflow: scroll-y;
+    // background-color: #fff;
 
 
     .Qyp_top-box {
       width: 100%;
       position: relative;
+      background-color: #fff;
 
 
       img {
@@ -128,7 +221,7 @@
 
       .Qyp_tab {
         width: 90%;
-        height: 46vw;
+        height: 50vw;
         background-color: rgb(255, 255, 255);
         margin: 0 5%;
         position: absolute;
@@ -144,35 +237,58 @@
           display: flex;
 
           :nth-child(1) {
-            // display: block;
-            width: 1.18rem;
-            height: 1.18rem;
-            // background-color: rgb(145, 246, 250);
-            margin: 4vw 4vw 4vw 4vw;
-            border-radius: 50rem;
-            position: relative;
-            border: 0.02rem solid rgb(218, 218, 218);
+            span {
+              // display: block;
+              width: 1.18rem;
+              height: 1.18rem;
+              background-color: rgb(145, 246, 250);
+              margin: 4vw 4vw 4vw 4vw;
+              border-radius: 50rem;
+              border: 0.02rem solid rgb(218, 218, 218);
+              img{
+                border-radius: 5rem;
+                width: 100%;
+                height: 100%;
+              }
+            }
 
-            img {
+            .img {
               position: absolute;
               width: 0.5rem;
               height: 0.5rem;
-              left: 0.6rem;
-              top: -0.5rem;
+              left: 1.1rem;
+              top: -0.45rem;
               border: none;
+              // background-color: #fff;
             }
           }
 
           :nth-child(2) {
-            display: block;
+            display: flex;
             width: 3.24rem;
             height: 40%;
-            background-color: rgb(154, 250, 145);
+            // background-color: rgb(154, 250, 145);
             margin: 7vw 0 4vw;
             font-size: 0.35rem;
             line-height: 0.7rem;
 
+            :nth-child(1) {
+              display: block;
+              flex: 0.7;
+              margin-top: 0.1rem;
 
+
+            }
+
+            :nth-child(2) {
+              display: block;
+              flex: 0.3;
+              margin-top: 0.1rem;
+              text-align: center;
+              color: salmon;
+              
+
+            }
 
           }
         }
@@ -187,7 +303,7 @@
             flex: 1;
             display: block;
             // background-color: rgb(145, 246, 250);
-            margin: 2vw 2vw 2vw 2vw;
+            margin: 0vw 2vw 2vw 2vw;
             // border-right: 0.03rem solid #dfdede;
 
             :nth-child(1) {
@@ -231,7 +347,7 @@
             flex: 1;
             // background-color: rgb(145, 246, 250);
             margin: 2vw 2vw 2vw 2vw;
-            border-left: 0.03rem solid #ecebeb;
+            // border-left: 0.03rem solid #ecebeb;
 
             :nth-child(1) {
               color: red;
@@ -257,9 +373,9 @@
         margin: 0 5%;
         height: 1rem;
         background: linear-gradient(-90deg, #f2995a, #eb6100);
-        top: 20rem;
+        top: 22rem;
         position: absolute;
-        top: 4.8rem;
+        top: 5rem;
         border-radius: 2rem;
         // background-color: #fff;
         display: flex;
@@ -316,7 +432,7 @@
       .Qyp_footer {
         width: 90%;
         margin: 0 5%;
-        margin-top: 3.7rem;
+        margin-top: 4rem;
 
         .lesson {
           margin-top: 0.3rem;
