@@ -18,8 +18,6 @@ const routes = [
         name: 'calendar',
         component: () => import('@/views/itemPage/Chc_calendar')
     },
-<<<<<<< HEAD
-    
     {
         path:'/free', //免费和详情
         name:'free',
@@ -35,11 +33,6 @@ const routes = [
         name:'testContent',
         component:()=>import('@/views/itemPage/Zpy_testContent')
     },
-=======
-
-
-
-
 
     //qyp登录
     {
@@ -130,9 +123,7 @@ const routes = [
         path: '/Qyp_msg_edit',
         name: 'Qyp_msg_edit',
         component: () => import('@/views/itemPage/login/Qyp_msg_edit.vue')
-    },
-
->>>>>>> d6c2134c4f7e3dbed940bb724d3796e6253dd702
+    }
 ]
 
 export default routes

@@ -66,7 +66,7 @@
             <!-- <p>{{item.start_play_date | filterTime}}&emsp;{{item.end_play_date | filterTime}}|&emsp;共{{ item.total_periods }}课时</p> -->
             <p>1970年01月19日 21:11|&emsp;共5课时</p>
             <p class="Zpy_img">
-              <img src="../../../public/user_bg.ab306a5c.png" alt="" />
+              <img src="/icon/user_bg.ab306a5c.png" alt="" />
               &emsp;&emsp;
               <span class="Zpy_name">{{
                 item.teachers_list[0].teacher_name

@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="Zpy_practice">
     <div class="Zpy_head">练习</div>
     <div class="Zpy_studyList">
@@ -146,36 +145,4 @@ left: 25%;
     }
   }
 }
-=======
-  <div id='practice'>
-      练习页面
- </div>
-</template>
-
-<script>
-export default {
-  name: '',
-  data() { 
-    return {
-
-    }
-  },
-  components:{
-
-  },
-props:[],
-  computed:{
-
-  },
-  created() {
-
-  },
-  methods:{
-
-  },
- }
-</script>
-
-<style lang='scss' scoped>
->>>>>>> d6c2134c4f7e3dbed940bb724d3796e6253dd702
 </style>
