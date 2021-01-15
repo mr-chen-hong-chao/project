@@ -10,7 +10,8 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 Vue.use(Vant)
 Vue.config.productionTip = false
-
+import axios from 'axios'
+Vue.prototype.$axios=axios
 new Vue({
   router,
   store,

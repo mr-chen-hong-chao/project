@@ -7,25 +7,26 @@
     </div>
     <div class="Zpy_body">
       <div class="Zpy_title">
-        <p class="title">{{ Zpy_detailList.title }}</p>
+        <p class="title">{{ DetailList.title }}</p>
         <p class="Zpy_free">免费</p>
         <p class="Zpy_grey">
-          共{{ Zpy_detailList.total_periods }}课时&emsp;|&emsp;{{
-            Zpy_detailList.sales_num
+          共{{ DetailList.total_periods }}课时&emsp;|&emsp;{{
+            DetailList.sales_num
           }}人已报名
         </p>
         <p class="Zpy_grey">
-          开课时间：{{ Zpy_detailList.start_play_date | filterTime }}&emsp;{{
-            Zpy_detailList.end_play_date | filterTime
-          }}&emsp;
+          <!-- 开课时间：{{ DetailList.start_play_date | filterTime }}&emsp;{{
+            DetailList.end_play_date | filterTime
+          }}&emsp; -->
+          2021年1月15日 12：00
         </p>
       </div>
       <div class="Zpy_teach">
         <p class="Zpy_team">教学团队</p>
         <img :src="detail.teacher_avatar" alt="" />
-        <p class="ZPy_name" v-if="Zpy_detailList.teachers_list">
-          <!-- {{ Zpy_detailList.teachers_list[0].teacher_name }} -->
-          {{ detail.teacher_name }}
+        <p class="ZPy_name" v-if="DetailList.teachers_list">
+          {{ DetailList.teachers_list[0].teacher_name }}
+          <!-- {{ detail.teacher_name }} -->
         </p>
       </div>
       <div class="Zpy_introduce">课程介绍</div>
@@ -38,10 +39,23 @@
               <span class="Zpy_back">回放</span>
               {{ item.periods_title }}
             </p>
-            <p class="Zpy_gray" v-if="item.teachers[0]">
+            <p class="Zpy_gray">
               {{ item.teachers[0].teacher_name }}
               {{ item.start_play }}-{{ item.end_play }}
             </p>
+          </li>
+        </ul>
+      </div>
+      <div class="Zpy_comment">
+        <p>课程评论</p>
+        <ul>
+          <li v-for="(item, index) in Zpy_commentList" :key="index">
+            <img :src="item.img" alt="" />
+            <div>
+              {{ item.name }}
+              <span>{{ item.time }}</span>
+              <p>{{ item.content }}</p>
+            </div>
           </li>
         </ul>
       </div>
@@ -50,14 +64,110 @@
   </div>
 </template>
 <script>
-import { getTeacher, getHour } from "../../utils/api/index.js";
+// import { getComment } from "../../utils/api/index.js";
 export default {
   data() {
     return {
-      Zpy_detailList: [],
+      Zpy_detailList: [
+        {
+          title: "qqq",
+          total_periods: 2,
+          id: 1,
+          end_play_date: "",
+          sales_num: "",
+          teachers_list: [
+            {
+              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
+              teacher_name: "李青",
+            },
+          ],
+        },
+        {
+          title: "xx2x",
+          total_periods: 4,
+          id: 2,
+          end_play_date: "",
+          sales_num: "",
+          teachers_list: [
+            {
+              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
+              teacher_name: "1111",
+            },
+          ],
+        },
+        {
+          title: "xx44x",
+          total_periods: 7,
+          id: 3,
+          end_play_date: "",
+          sales_num: "",
+          teachers_list: [
+            {
+              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
+              teacher_name: "2222",
+            },
+          ],
+        },
+        {
+          title: "xxx",
+          total_periods: 6,
+          id: 4,
+          end_play_date: "",
+          sales_num: "",
+          teachers_list: [
+            {
+              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
+              teacher_name: "3333",
+            },
+          ],
+        },
+      ],
+      DetailList: [],
       detail: "",
-      Zpy_outline: [],
+      Zpy_outline: [
+        // {
+        //   start_play:'1月2日',
+        //   end_play:'1月5日',
+        //   periods_title:'第一课时到第二课时',
+        //   teachers:[
+        //     {
+        //       teacher_name:'cc',
+        //     }
+        //   ]
+        // },
+        // {
+        //   start_play:'1月t542日',
+        //   end_play:'1月45日',
+        //   periods_title:'第一课时到第二课时',
+        //   teachers:[
+        //     {
+        //       teacher_name:'aaa',
+        //     }
+        //   ]
+        // },
+        // {
+        //   start_play:'1月4日',
+        //   end_play:'1月52日',
+        //   periods_title:'第一课时到第二课时',
+        //   teachers:[
+        //     {
+        //       teacher_name:'ee',
+        //     }
+        //   ]
+        // },
+        // {
+        //   start_play:'1月22日',
+        //   end_play:'1月45日',
+        //   periods_title:'第一课时到第二课时',
+        //   teachers:[
+        //     {
+        //       teacher_name:'hy',
+        //     }
+        //   ]
+        // },
+      ],
       teacherName: "",
+      Zpy_commentList: [], //评论
     };
   },
   filters: {
@@ -87,24 +197,41 @@ export default {
     },
   },
   mounted() {
-    getTeacher().then((res) => {
-      //   console.log(res);
-      res.data.data.list.forEach((item) => {
-        if (item.id == this.$route.query.id) {
-          this.Zpy_detailList = item;
-        }
-      });
-      //   console.log(this.Zpy_detailList.teachers_list[0]);
-      this.detail = this.Zpy_detailList.teachers_list[0];
+    // getTeacher().then((res) => {
+    //   //   console.log(res);
+    //   res.data.data.list.forEach((item) => {
+    //     if (item.id == this.$route.query.id) {
+    //       this.Zpy_detailList = item;
+    //     }
+    //   });
+    //   //   console.log(this.Zpy_detailList.teachers_list[0]);
+    //   this.detail = this.Zpy_detailList.teachers_list[0];
+    // });
+
+    this.Zpy_detailList.forEach((item) => {
+      if (item.id == this.$route.query.id) {
+        this.DetailList = item;
+      }
+      // this.detail = this.DetailList.teachers_list[0];
     });
-    getHour({ id: 287 }).then((res) => {
-    //   console.log(res);
+
+    // getHour({ id: 287 }).then((res) => {
+    //   //   console.log(res);
+    //   this.Zpy_outline = res.data.data;
+    // });
+    this.$axios.get("/Zpy_outline.json").then((res) => {
+      // console.log(res);
       this.Zpy_outline = res.data.data;
+    });
+
+    this.$axios.get("/Zpy_commentList.json").then((res) => {
+      console.log(res);
+      this.Zpy_commentList = res.data.data;
     });
   },
   methods: {
     goUp() {
-      //   this.$route.go(-1)
+      this.$router.go(-1);
     },
   },
 };
@@ -133,7 +260,7 @@ export default {
 }
 .Zpy_body {
   width: 100%;
-  overflow: auto;
+  overflow-y: scroll;
   height: 92.4vh;
   .Zpy_title {
     width: 100%;
@@ -230,11 +357,48 @@ export default {
       }
     }
   }
+  .Zpy_comment {
+    width: 100%;
+    height: 11rem;
+    padding-left: 0.3rem;
+    padding-top: 0.3rem;
+    background-color: white;
+    ul {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      li {
+        width: 100%;
+        height: 1.1rem;
+        display: inline-flex;
+        margin-top: 0.3rem;
+        img {
+          width: 15%;
+          height: 100%;
+        }
+        div {
+          width: 80%;
+          height: 100%;
+          padding-left: 0.4rem;
+          p{
+            margin-top: 0.2rem;
+          }
+        }
+      }
+    }
+  }
 }
 .Zpy_button {
   width: 100%;
   height: 7vh;
+  line-height: 7vh;
   background-color: #eb6100;
   color: white;
+  text-align: center;
+  z-index: 999;
+  position: fixed;
+  bottom: 0;
+  left: 0;
 }
 </style>

@@ -8,20 +8,65 @@
       </div>
       <div class="Zpy_type">
         <ul>
-          <li>分类&emsp;<van-icon name="arrow-down" /></li>
-          <li>排序&emsp;<van-icon name="arrow-down" /></li>
-          <li>筛选&emsp;<van-icon name="arrow-down" /></li>
+          <li @click="Zpy_type">分类&emsp;<van-icon name="arrow-down" /></li>
+          <li @click="Zpy_sort">排序&emsp;<van-icon name="arrow-down" /></li>
+          <li @click="Zpy_change">筛选&emsp;<van-icon name="arrow-down" /></li>
         </ul>
+        <!-- 分类弹框 -->
+        <van-popup
+          v-model="show"
+          position="top"
+          :style="{ height: '20%' }"
+          :overlay-style="{ background: 'transparent' }"
+        >
+          <div class="Zpy_button">
+            <button class="Zpy_reset">重置</button
+            ><button class="Zpy_true">确定</button>
+          </div>
+        </van-popup>
+        <!-- 排序弹框 -->
+        <van-popup
+          v-model="isShow"
+          position="top"
+          :style="{ height: '37.5%' }"
+          :overlay-style="{ background: 'transparent' }"
+        >
+          <div class="Zpy_sort">
+            <p>综合排序</p>
+            <p>最新</p>
+            <p @click="Zpy_hot">最热</p>
+            <p @click="Zpy_up">价格从高到低</p>
+            <p @click="Zpy_down">价格从低到高</p>
+          </div>
+        </van-popup>
+        <!-- 筛选弹框 -->
+        <van-popup
+          v-model="isShow2"
+          position="top"
+          :style="{ height: '10%' }"
+          :overlay-style="{ background: 'transparent' }"
+        >
+          <div class="Zpy_change">
+            <button>全部</button>
+            <button>大班课</button>
+            <button>公开课</button>
+          </div>
+        </van-popup>
       </div>
     </div>
     <div class="Zpy_body">
       <div class="Zpy_teacher_content">
         <ul>
-          <li v-for="(item, index) in teacherList" :key="index">
+          <li
+            v-for="(item, index) in teacherList"
+            :key="index"
+            @click="Zpy_content_detail(item.id)"
+          >
             <p class="Zpy_title">{{ item.title }}</p>
-            <p>{{item.start_play_date | filterTime}}&emsp;{{item.end_play_date | filterTime}}|&emsp;共{{ item.total_periods }}课时</p>
+            <!-- <p>{{item.start_play_date | filterTime}}&emsp;{{item.end_play_date | filterTime}}|&emsp;共{{ item.total_periods }}课时</p> -->
+            <p>1970年01月19日 21:11|&emsp;共5课时</p>
             <p class="Zpy_img">
-              <img :src="item.teachers_list[0].teacher_avatar" alt="" />
+              <img src="../../../public/user_bg.ab306a5c.png" alt="" />
               &emsp;&emsp;
               <span class="Zpy_name">{{
                 item.teachers_list[0].teacher_name
@@ -44,22 +89,63 @@ export default {
     return {
       teacherList: [
         {
-          title:'',
-          start_play_date:'',
-          end_play_date:'',
-          sales_num:'',
-          id:'',
-          teachers_list:[
+          title: "qqq",
+          total_periods: 2,
+          id: 1,
+          end_play_date: "",
+          sales_num: 12,
+          teachers_list: [
             {
-              teacher_avatar:'',
-              teacher_name:'',
-
-            }
-          ]
-
-        }
+              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
+              teacher_name: "李青",
+            },
+          ],
+        },
+        {
+          title: "xx2x",
+          total_periods: 4,
+          id: 2,
+          end_play_date: "",
+          sales_num: 65,
+          teachers_list: [
+            {
+              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
+              teacher_name: "1111",
+            },
+          ],
+        },
+        {
+          title: "xx44x",
+          total_periods: 7,
+          id: 3,
+          end_play_date: "",
+          sales_num: 56,
+          teachers_list: [
+            {
+              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
+              teacher_name: "2222",
+            },
+          ],
+        },
+        {
+          title: "xxx",
+          total_periods: 6,
+          id: 4,
+          end_play_date: "",
+          sales_num: 67,
+          teachers_list: [
+            {
+              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
+              teacher_name: "3333",
+            },
+          ],
+        },
       ],
       teacherContent: {},
+      show: false,
+      isShow: false,
+      isShow2: false,
+      overlay: false,
     };
   },
   filters: {
@@ -67,7 +153,7 @@ export default {
       if (!val) {
         return "";
       }
-      var nd = new Date(val*1000);
+      var nd = new Date(val * 1000);
       var y = nd.getFullYear();
       var mm = nd.getMonth() + 1;
       var d = nd.getDate();
@@ -85,7 +171,7 @@ export default {
       if (m < 10) {
         m = "0" + m;
       }
-      return mm + "月" + d + "日"+' ' + h + ":" + m;
+      return mm + "月" + d + "日" + " " + h + ":" + m;
     },
   },
   methods: {
@@ -93,9 +179,36 @@ export default {
       this.$router.push({ path: "/Search" });
     },
     Zpy_free(id) {
-        console.log(id);
-      this.$router.push({ path: "/Free",query:{id}});
+      console.log(id);
+      this.$router.push({ path: "/Free", query: { id: id } });
     },
+    Zpy_content_detail(id) {
+      this.$router.push({ path: "/Free", query: { id: id } });
+    },
+    //分类弹框
+    Zpy_type() {
+      this.show = true;
+    },
+    //排序弹框
+    Zpy_sort() {
+      this.isShow = true;
+    },
+    Zpy_change() {
+      this.isShow2 = true;
+    },
+    //价格从高到低
+    Zpy_up(){
+
+    },
+    //价格从低到高
+    Zpy_down(){
+
+    },
+    Zpy_hot(){
+      this.teacherList=this.teacherList.sort((a,b)=>{
+        return a.sales_num-b.sales_num
+      })
+    }
   },
   mounted() {
     // getTeacher().then((res) => {
@@ -144,6 +257,53 @@ export default {
           text-align: center;
           width: 33.1%;
         }
+      }
+      .van-popup--top {
+        margin-top: 2rem;
+      }
+    }
+    .Zpy_button {
+      width: 100%;
+      display: inline-flex;
+      padding: 0 0.3rem;
+      button {
+        width: 48%;
+        height: 1rem;
+        border: none;
+        border-radius: 0.2rem;
+      }
+      .Zpy_reset {
+        color: grey;
+        margin-right: 0.2rem;
+      }
+      .Zpy_true {
+        color: white;
+        background-color: orangered;
+      }
+    }
+    .Zpy_sort {
+      width: 100%;
+      text-align: center;
+      color: grey;
+      p {
+        height: 1rem;
+        line-height: 1rem;
+        border-bottom: 1px solid #f0f2f5;
+      }
+    }
+    .Zpy_change {
+      width: 100%;
+      height: 2rem;
+      button {
+        background-color: gainsboro;
+        color: grey;
+        border: none;
+        border-radius: 0.1rem;
+        width: 1.5rem;
+        height: 0.7rem;
+        line-height: 0.7rem;
+        margin-left: 0.3rem;
+        text-align: center;
       }
     }
   }

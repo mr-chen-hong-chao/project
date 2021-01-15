@@ -19,6 +19,21 @@ const routes =[
         component:()=>import('@/views/itemPage/Chc_calendar')
     },
     
+    {
+        path:'/free', //免费和详情
+        name:'free',
+        component:()=>import('@/views/itemPage/Free')
+    },
+    {
+        path:'/search', //搜索
+        name:'search',
+        component:()=>import('@/views/itemPage/Search')
+    },
+    {
+        path:'/testContent', //题库选择
+        name:'testContent',
+        component:()=>import('@/views/itemPage/Zpy_testContent')
+    },
 ]
 
 export default routes

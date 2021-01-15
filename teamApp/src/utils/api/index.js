@@ -1,10 +1,10 @@
 import server from '../serve'
 
-const get = async function(){
-    let data = await server.get()
+const getComment = async function(){
+    let data = await server.post()
     return Promise.resolve(data)
 }
 
 export {
-    get
+    // getComment
 }
