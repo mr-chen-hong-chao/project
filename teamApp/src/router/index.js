@@ -13,10 +13,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-<<<<<<< HEAD
     redirect:'/main',
-=======
->>>>>>> 6a4824d (全艳平 我的页面)
     children:[
       ...MainRouter
     ]

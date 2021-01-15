@@ -1,6 +1,5 @@
 <template>
   <div id='main'>
-<<<<<<< HEAD
     <!-- 头部 -->
       <header>
         <!-- 轮播 -->
@@ -34,9 +33,6 @@
           </ul>
         </div>
       </section>
-=======
-      111
->>>>>>> 6a4824d (全艳平 我的页面)
  </div>
 </template>
 

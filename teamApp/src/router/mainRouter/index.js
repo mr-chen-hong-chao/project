@@ -9,7 +9,14 @@ const routes =[
         path:'user',
         name:'user',
         component:()=>import('@/views/mainPage/Qyp_User')
+    },
+    //约课记录
+    {
+        path:'history',
+        name:'history',
+        component:()=>import('@/views/mainPage/Qyp_history')
     }
+
 ]
 
 export default routes
