@@ -1,5 +1,6 @@
 <template>
   <div id='home'>
+<<<<<<< HEAD
     <div id="view">
       <router-view></router-view>
     </div>
@@ -25,10 +26,28 @@ export default {
 props:[],
  
   computed:{
+=======
+    <router-view></router-view>
+  </div>
+</template>
 
-  },
-  created() {
+<script>
+  export default {
+    name: '',
 
+    data() {
+      return {
+
+      }
+    },
+    components: {
+>>>>>>> 6a4824d (全艳平 我的页面)
+
+    },
+    props: [],
+    computed: {
+
+<<<<<<< HEAD
   },
   methods:{
     
@@ -51,3 +70,22 @@ props:[],
    
 }
 </style>
+=======
+    },
+    created() {
+
+    },
+    methods: {
+
+    },
+  }
+</script>
+
+<style lang='scss' scoped>
+  #home {
+    width: 100%;
+    height: 100%;
+    padding: 0.01rem;
+  }
+</style>
+>>>>>>> 6a4824d (全艳平 我的页面)

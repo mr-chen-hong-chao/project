@@ -8,7 +8,7 @@ const routes =[
     {
         path:'user',
         name:'user',
-        component:()=>import('@/views/mainPage/User')
+        component:()=>import('@/views/mainPage/Qyp_User')
     }
 ]
 
