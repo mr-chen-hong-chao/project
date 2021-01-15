@@ -1,6 +1,5 @@
 <template>
   <div id='main'>
-<<<<<<< HEAD
     <!-- 头部 -->
       <header>
         <!-- 轮播 -->
@@ -24,7 +23,7 @@
         <banner :banner="'名师阵容'"></banner>
         <div class="teacher list">
           <ul>
-            <li v-for="(item,i) in teacher" :key="i">
+            <li v-for="(item,i) in teacher" :key="i" @click="$router.push('/detail')">
               <img :src="item.img" alt="">
               <div class="info">
                 <h3>{{item.name}}</h3>
@@ -34,9 +33,6 @@
           </ul>
         </div>
       </section>
-=======
-      111
->>>>>>> 6a4824d (全艳平 我的页面)
  </div>
 </template>
 

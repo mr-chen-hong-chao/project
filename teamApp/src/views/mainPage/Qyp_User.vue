@@ -1,11 +1,11 @@
 <template>
   <div id='Qyp_my'>
     <div class="Qyp_top-box">
-      <img src="../../../public/user_bg.ab306a5c.png" alt="">
+      <img src="/icon/user_bg.ab306a5c.png" alt="">
       <div class="Qyp_tab">
         <div class="Qyp_tab_top">
           <div>
-            <img src="../../../public/皇冠-2 拷贝@2x.ca9087bc.png" alt="">
+            <img src="/icon/皇冠-2 拷贝@2x.ca9087bc.png" alt="">
           </div>
           <div>
             15660030263
@@ -46,33 +46,33 @@
         <div class="lesson">
           <p style="font-size: 0.35rem">课程相关</p>
           <van-grid :border="false">
-            <van-grid-item icon="/01.png" text="关注的老师" />
-            <van-grid-item icon="/02.png" text="我的收藏" />
+            <van-grid-item icon="/icon/01.png" text="关注的老师" />
+            <van-grid-item icon="/icon/02.png" text="我的收藏" />
           </van-grid>
         </div>
         <div class="order">
           <p style="font-size: 0.35rem">订单相关</p>
           <van-grid :border="false">
-            <van-grid-item icon="/03.png" text="课程订单" />
-            <van-grid-item icon="/03.png" text="会员订单" />
-            <van-grid-item icon="/03.png" text="约课订单" />
+            <van-grid-item icon="/icon/03.png" text="课程订单" />
+            <van-grid-item icon="/icon/03.png" text="会员订单" />
+            <van-grid-item icon="/icon/03.png" text="约课订单" />
           </van-grid>
         </div>
         <div class="account">
           <p style="font-size: 0.35rem">我的账户</p>
           <van-grid :border="false">
-            <van-grid-item icon="/04.png" text="优惠券" />
-            <van-grid-item icon="/05.png" text="学习卡" />
-            <van-grid-item icon="/06.png" text="会员" />
+            <van-grid-item icon="/icon/04.png" text="优惠券" />
+            <van-grid-item icon="/icon/05.png" text="学习卡" />
+            <van-grid-item icon="/icon/06.png" text="会员" />
           </van-grid>
         </div>
         <div class="server">
           <p style="font-size: 0.35rem">自助服务</p>
           <van-grid :border="false">
-            <van-grid-item icon="/07.png" text="我的消息" />
-            <van-grid-item icon="/08.png" text="意见反馈" />
-            <van-grid-item icon="/09.png" text="在线客服" />
-            <van-grid-item icon="/10.png" text="设置" />
+            <van-grid-item icon="/icon/07.png" text="我的消息" />
+            <van-grid-item icon="/icon/08.png" text="意见反馈" />
+            <van-grid-item icon="/icon/09.png" text="在线客服" />
+            <van-grid-item icon="/icon/10.png" text="设置" />
           </van-grid>
         </div>
       </div>

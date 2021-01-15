@@ -36,8 +36,8 @@ display: flex;
     align-items: center;
 }
 #email{
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1rem;
+    height: 1rem;
     background: rgb(67, 140, 236);
     border-radius: 50%;
     @include around;

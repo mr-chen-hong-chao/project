@@ -1,6 +1,6 @@
 <template>
-  <div id=''>
-    
+  <div id='history'>
+      约课记录
  </div>
 </template>
 
