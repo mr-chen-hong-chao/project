@@ -2,9 +2,9 @@
 const routes = [
     // 详情路由
     {
-        path: '/detail',
-        name: 'detail',
-        component: () => import('@/views/itemPage/Chc_Detail')
+        path: '/teacher-detail',
+        name: 'teacher-detail',
+        component: () => import('@/views/itemPage/Chc_teacher-detail')
     },
     // 辅导路由
     {
@@ -33,6 +33,8 @@ const routes = [
         name:'testContent',
         component:()=>import('@/views/itemPage/Zpy_testContent')
     },
+
+    
 
     //qyp登录
     {

@@ -5,11 +5,13 @@
       <email-btn></email-btn>
     </div>
     <popup :popShow='show' @hide='tabHide()'></popup>
+    <loading></loading>
   </div>
 </template>
 <script>
   import EmailBtn from '@/components/Email_btn'
   import Popup from '@/components/Chc_popup'
+  import Loading from '@/components/Loading'
   export default {
     data() {
       return {
@@ -18,7 +20,8 @@
     },
     components: {
       EmailBtn,
-      Popup
+      Popup,
+      Loading
     },
     methods: {
       changePop() {

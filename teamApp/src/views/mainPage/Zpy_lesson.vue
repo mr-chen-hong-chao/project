@@ -173,6 +173,12 @@ export default {
       return mm + "月" + d + "日" + " " + h + ":" + m;
     },
   },
+  created(){
+    //测试接口
+    getPublic().then(res=>{
+      console.log(res)
+    })
+  },
   methods: {
     Zpy_search() {
       this.$router.push({ path: "/search" });

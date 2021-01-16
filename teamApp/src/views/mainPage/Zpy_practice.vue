@@ -44,9 +44,16 @@
   </div>
 </template>
 <script>
+import {getPublic} from '@/utils/api'
 export default {
   data() {
     return {};
+  },
+  created(){
+    //测试接口
+    getPublic().then(res=>{
+      console.log(res)
+    })
   },
   methods: {
       Zpy_testContent(){

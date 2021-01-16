@@ -85,6 +85,7 @@
 </template>
 
 <script>
+import {getPublic} from '@/utils/api'
   export default {
     name: '',
     data() {
@@ -100,9 +101,12 @@
     computed: {
 
     },
-    created() {
-
-    },
+    created(){
+    //测试接口
+    getPublic().then(res=>{
+      console.log(res)
+    })
+  },
     methods: {
       //点击头像登录
       gotoLogin() {
@@ -303,7 +307,7 @@
             flex: 1;
             display: block;
             // background-color: rgb(145, 246, 250);
-            margin: 0vw 2vw 2vw 2vw;
+            margin: 2vw 2vw 2vw 2vw;
             // border-right: 0.03rem solid #dfdede;
 
             :nth-child(1) {
@@ -454,14 +458,6 @@
           border-bottom: 0.02rem solid #ccc;
         }
       }
-
-
-
-
-
-
-
     }
-
   }
 </style>
