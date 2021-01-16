@@ -303,7 +303,7 @@
             flex: 1;
             display: block;
             // background-color: rgb(145, 246, 250);
-            margin: 0vw 2vw 2vw 2vw;
+            margin: 2vw 2vw 2vw 2vw;
             // border-right: 0.03rem solid #dfdede;
 
             :nth-child(1) {

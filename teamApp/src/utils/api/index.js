@@ -1,10 +1,10 @@
 import server from '../serve'
 
-const getComment = async function(){
-    let data = await server.post()
+const getRegion = async function(){
+    let data = await server.get('./region/region.json')
     return Promise.resolve(data)
 }
 
 export {
-    // getComment
+    getRegion
 }
