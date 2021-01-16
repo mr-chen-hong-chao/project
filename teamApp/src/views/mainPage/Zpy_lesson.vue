@@ -74,7 +74,7 @@
             </p>
             <p class="Zpy_num">
               {{ item.sales_num }}人已报名
-              <span class="Zpy_free" @click="Zpy_free(item.id)">免费</span>
+              <span class="Zpy_free" @click.stop="Zpy_free(item.id)">免费</span>
             </p>
           </li>
         </ul>
@@ -83,7 +83,7 @@
   </div>
 </template>
 <script>
-import { getTeacher } from "../../utils/api/index.js";
+import {getPublic} from '@/utils/api'
 export default {
   data() {
     return {
@@ -173,6 +173,12 @@ export default {
       }
       return mm + "月" + d + "日" + " " + h + ":" + m;
     },
+  },
+  created(){
+    //测试接口
+    getPublic().then(res=>{
+      console.log(res)
+    })
   },
   methods: {
     Zpy_search() {

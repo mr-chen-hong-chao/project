@@ -42,5 +42,6 @@ display: flex;
     border-radius: 50%;
     @include around;
     z-index: 999;
+    box-shadow: 0rem 0rem 0.1rem 0.05rem rgb(148, 148, 148) ;
 }
 </style>
