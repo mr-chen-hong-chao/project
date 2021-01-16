@@ -84,8 +84,8 @@ export default {
       text-align: center;
       img {
         border-radius: 50%;
-        width: 50%;
-        height: 1rem;
+        width: 48.9%;
+        height: 0.8rem;
         margin-top: 0.3rem;
         box-shadow: grey;
         border: 1px solid #f1f1f1;

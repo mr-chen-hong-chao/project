@@ -3,7 +3,7 @@
     <div class="Zpy_head">
       <van-icon name="arrow-left" @click="goUp" />
       <p>课程详情</p>
-      <van-icon name="cluster-o" />
+      <van-icon name="cluster-o" @click="Zpy_share" />
     </div>
     <div class="Zpy_body">
       <div class="Zpy_title">
@@ -46,6 +46,7 @@
           </li>
         </ul>
       </div>
+
       <div class="Zpy_comment">
         <p>课程评论</p>
         <ul>
@@ -60,11 +61,17 @@
         </ul>
       </div>
     </div>
-    <div class="Zpy_button">立即学习</div>
+    <div class="Zpy_button" @click="Zpy_study">立即学习</div>
+    <!-- 分享弹框 -->
+    <van-share-sheet
+      v-model="showShare"
+      title="立即分享给好友"
+      :options="options"
+    />
   </div>
 </template>
 <script>
-// import { getComment } from "../../utils/api/index.js";
+import { getComment } from "../../utils/api/index.js";
 export default {
   data() {
     return {
@@ -168,6 +175,20 @@ export default {
       ],
       teacherName: "",
       Zpy_commentList: [], //评论
+      showShare: false,
+      options: [
+        [
+          { name: "微信", icon: "wechat" },
+          { name: "微博", icon: "weibo" },
+          { name: "QQ", icon: "qq" },
+        ],
+        [
+          { name: "复制链接", icon: "link" },
+          { name: "分享海报", icon: "poster" },
+          { name: "二维码", icon: "qrcode" },
+          { name: "小程序码", icon: "weapp-qrcode" },
+        ],
+      ],
     };
   },
   filters: {
@@ -208,6 +229,11 @@ export default {
     //   this.detail = this.Zpy_detailList.teachers_list[0];
     // });
 
+getComment({page:1,limit:100}).then(res=>{
+  console.log(res);
+})
+
+
     this.Zpy_detailList.forEach((item) => {
       if (item.id == this.$route.query.id) {
         this.DetailList = item;
@@ -225,14 +251,19 @@ export default {
     });
 
     this.$axios.get("/Zpy_commentList.json").then((res) => {
-      console.log(res);
+      // console.log(res);
       this.Zpy_commentList = res.data.data;
     });
   },
   methods: {
     goUp() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push("/lesson"); //返回上一页
     },
+    Zpy_share() {
+      this.showShare = true; //点击分享
+    },
+    Zpy_study(){}
   },
 };
 </script>
@@ -381,7 +412,7 @@ export default {
           width: 80%;
           height: 100%;
           padding-left: 0.4rem;
-          p{
+          p {
             margin-top: 0.2rem;
           }
         }
@@ -400,5 +431,32 @@ export default {
   position: fixed;
   bottom: 0;
   left: 0;
+}
+.Zpy_friend {
+  width: 100%;
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    li {
+      width: 33.3%;
+      text-align: center;
+      margin-top: 0.4rem;
+      color: grey;
+      img {
+        width: 0.7rem;
+        height: 0.7rem;
+      }
+      p {
+        margin-top: 0.2rem;
+      }
+    }
+  }
+}
+.Zpy_cancel {
+  width: 100%;
+  height: 0.6rem;
+  border: 1px solid grey;
+  margin-top: 0.2rem;
+  border: none;
 }
 </style>

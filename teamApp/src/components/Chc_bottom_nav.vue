@@ -41,7 +41,7 @@
                         path: '/user'
                     },
                 ],
-                defaultIndex: 0,
+                defaultIndex: '',
 
             }
         },
