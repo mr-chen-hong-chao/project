@@ -34,6 +34,8 @@ const routes = [
         component:()=>import('@/views/itemPage/Zpy_testContent')
     },
 
+    
+
     //qyp登录
     {
         path: '/login',
