@@ -1,18 +1,16 @@
 <template>
     <div>
-<h1>在线客服</h1>
+        <Heads></Heads>
     </div>
 </template>
 <script>
-export default {
-    
-}
+    import Heads from '../../../components/Qyp_header'
+    export default {
+        components:{
+            Heads
+        }
+
+    }
 </script>
 <style lang="scss" scoped>
-*{
-    margin-top: 0.5rem;
-    text-align: center;
-    font-size: 0.5rem !important;
-}
-
 </style>
