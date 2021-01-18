@@ -21,16 +21,25 @@ const routes = [
     {
         path:'/free', //免费和详情
         name:'free',
+        meta:{title:'详情'},
         component:()=>import('@/views/itemPage/Free')
     },
     {
         path:'/search', //搜索
         name:'search',
+        meta:{title:'搜索'},
         component:()=>import('@/views/itemPage/Search')
+    },
+    {
+        path:'/searchList', //搜索结果列表
+        name:'searchList',
+        meta:{title:'搜索结果列表'},
+        component:()=>import('@/views/itemPage/Zpy_searchList')
     },
     {
         path:'/testContent', //题库选择
         name:'testContent',
+        meta:{title:'题库选择'},
         component:()=>import('@/views/itemPage/Zpy_testContent')
     },
 
