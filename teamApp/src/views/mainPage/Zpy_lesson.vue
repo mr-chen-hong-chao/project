@@ -16,13 +16,9 @@
         <van-popup
           v-model="show"
           position="top"
-          :style="{ height: '20%' }"
+          :style="{ height: '50%' }"
           :overlay-style="{ background: 'transparent' }"
         >
-          <div class="Zpy_button">
-            <button class="Zpy_reset">重置</button
-            ><button class="Zpy_true">确定</button>
-          </div>
         </van-popup>
         <!-- 排序弹框 -->
         <van-popup
@@ -43,13 +39,17 @@
         <van-popup
           v-model="isShow2"
           position="top"
-          :style="{ height: '10%' }"
+          :style="{ height: '30%' }"
           :overlay-style="{ background: 'transparent' }"
         >
           <div class="Zpy_change">
             <button>全部</button>
             <button>大班课</button>
             <button>公开课</button>
+            <div class="Zpy_button">
+              <button class="Zpy_reset">重置</button
+              ><button class="Zpy_true">确定</button>
+            </div>
           </div>
         </van-popup>
       </div>
@@ -74,7 +74,7 @@
             </p>
             <p class="Zpy_num">
               {{ item.sales_num }}人已报名
-              <span class="Zpy_free" @click="Zpy_free(item.id)">免费</span>
+              <span class="Zpy_free" @click.stop="Zpy_free(item.id)">免费</span>
             </p>
           </li>
         </ul>
@@ -83,7 +83,6 @@
   </div>
 </template>
 <script>
-import { getTeacher } from "../../utils/api/index.js";
 export default {
   data() {
     return {
@@ -174,16 +173,22 @@ export default {
       return mm + "月" + d + "日" + " " + h + ":" + m;
     },
   },
+  created(){
+    //测试接口
+    getPublic().then(res=>{
+      console.log(res)
+    })
+  },
   methods: {
     Zpy_search() {
-      this.$router.push({ path: "/Search" });
+      this.$router.push({ path: "/search" });
     },
     Zpy_free(id) {
       console.log(id);
-      this.$router.push({ path: "/Free", query: { id: id } });
+      this.$router.push({ path: "/free", query: { id: id } });
     },
     Zpy_content_detail(id) {
-      this.$router.push({ path: "/Free", query: { id: id } });
+      this.$router.push({ path: "/free", query: { id: id } });
     },
     //分类弹框
     Zpy_type() {
@@ -197,18 +202,14 @@ export default {
       this.isShow2 = true;
     },
     //价格从高到低
-    Zpy_up(){
-
-    },
+    Zpy_up() {},
     //价格从低到高
-    Zpy_down(){
-
+    Zpy_down() {},
+    Zpy_hot() {
+      this.teacherList = this.teacherList.sort((a, b) => {
+        return b.sales_num - a.sales_num;
+      });
     },
-    Zpy_hot(){
-      this.teacherList=this.teacherList.sort((a,b)=>{
-        return a.sales_num-b.sales_num
-      })
-    }
   },
   mounted() {
     // getTeacher().then((res) => {
@@ -262,7 +263,32 @@ export default {
         margin-top: 2rem;
       }
     }
-    .Zpy_button {
+    
+    .Zpy_sort {
+      width: 100%;
+      text-align: center;
+      color: grey;
+      p {
+        height: 1rem;
+        line-height: 1rem;
+        border-bottom: 1px solid #f0f2f5;
+      }
+    }
+    .Zpy_change {
+      width: 100%;
+      height: 3rem;
+      button {
+        background-color: gainsboro;
+        color: grey;
+        border: none;
+        border-radius: 0.1rem;
+        width: 1.5rem;
+        height: 0.7rem;
+        line-height: 0.7rem;
+        margin-left: 0.3rem;
+        text-align: center;
+      }
+      .Zpy_button {
       width: 100%;
       display: inline-flex;
       padding: 0 0.3rem;
@@ -281,30 +307,6 @@ export default {
         background-color: orangered;
       }
     }
-    .Zpy_sort {
-      width: 100%;
-      text-align: center;
-      color: grey;
-      p {
-        height: 1rem;
-        line-height: 1rem;
-        border-bottom: 1px solid #f0f2f5;
-      }
-    }
-    .Zpy_change {
-      width: 100%;
-      height: 2rem;
-      button {
-        background-color: gainsboro;
-        color: grey;
-        border: none;
-        border-radius: 0.1rem;
-        width: 1.5rem;
-        height: 0.7rem;
-        line-height: 0.7rem;
-        margin-left: 0.3rem;
-        text-align: center;
-      }
     }
   }
   .Zpy_body {

@@ -13,6 +13,7 @@
   </div>
 </template>
 <script>
+import {getPublic} from '@/utils/api'
 export default {
   data() {
     return {
@@ -34,6 +35,10 @@ export default {
     //   // console.log(res)
     //   this.list = res.data.data.list
     // })
+    //测试接口
+    getPublic().then(res=>{
+      console.log(res)
+    })
   },
   methods: {
     cut(name) {

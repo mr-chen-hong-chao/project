@@ -5,7 +5,6 @@ import Home from '../views/Home.vue'
 import MainRouter from './mainRouter'
 // 项目页面路由
 import ItemRouter from './itemRouter'
-
 Vue.use(VueRouter)
 
 const routes = [
@@ -25,5 +24,17 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  if(typeof(location)=="string"){
+    var Separator = "&";
+    if(location.indexOf('?')==-1) { Separator='?'; }
+    location = location + Separator + "random=" + Math.random();
+  }
+  return routerPush.call(this, location).catch(error=> error)
+}
+ 
+
+
 
 export default router

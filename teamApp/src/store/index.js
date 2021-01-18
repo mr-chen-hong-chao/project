@@ -10,6 +10,8 @@ export default new Vuex.Store({
     token:'',
     focusTeacher:[],
     isFocus:false,
+    bottomNavIndex:0,//底部导航显下标,
+    loadingShow:true,  //loading显示状态
   },
   mutations: {
     //关注，传入老师id如果focusTeacher数组为空首先添加，如果不为空，进行循环查找，
@@ -29,8 +31,16 @@ export default new Vuex.Store({
           }
         })
       }
-      
-      }
+    },
+    //改变底部导航下标
+    tabBottomNav(state,val){
+      state.bottomNavIndex =val
+    },
+    //切换loading状态
+    tabLoadingShow(state,val){
+      console.log(val)
+      state.loadingShow = val
+    }
       
     
   },

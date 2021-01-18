@@ -16,7 +16,8 @@
       </div>
       <div class="teacher-list">
           <ul>
-            <li v-for="(item,i) in teacher" :key="i">
+            <li v-for="(item,i) in teacher" :key="i"
+            class="box-shadow-bottom">
               <img :src="item.img" alt="">
               <div class="info">
                 <h3>{{item.name}}</h3>
