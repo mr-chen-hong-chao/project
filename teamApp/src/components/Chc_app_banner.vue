@@ -13,26 +13,30 @@ export default {
   name: "",
   data() {
     return {
-      show:false
+      show:false,
     };
   },
   components: {},
   props: [],
   computed: {},
   created() {
+    if(this.$route.path =='/lesson'){
+      this.show = true
+    }else{
+      this.show = false
+    }
   },
   methods: {
     back(){
       this.$router.back()
     }
   },
-  //监听路由,显示隐藏右侧搜索图标
 };
 </script>
 <style lang='scss' scoped>
 #app-banner{
   /deep/.van-icon{
-    color: black;
+    // color: black;
   }
     
 }

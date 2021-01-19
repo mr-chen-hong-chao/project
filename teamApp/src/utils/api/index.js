@@ -11,27 +11,43 @@ const getHome = async function(){
     let {data} = await server.get('/api/app/recommend/appIndex')
     return Promise.resolve(data.data)
 }
+//筛选
+const getChange = async function(){
+    let {data} = await server.get('/api/app/courseClassify?')
+    return Promise.resolve(data.data)
+}
+//请求所有老师数据接口
+const getAllTeacher = async function(val){
+    console.log(val)
+    let {data} = await server.get('/api/app/teacher/search/attrs?'+`page=${val.page}`+`&limit=${val.limit}`)
+    return Promise.resolve(data.data.list)
+
+}
+//请求老师信息
+const getTeacherInfo = async function(val){
+    console.log(val)
+    let {data} =  await server.get('/api/app/teacher/info/'+val)
+    return Promise.resolve(data)
+}
 //请求老师详情
 const getTeacherDetail = async function(val){
-    let {data} =  await server.get('/api/app/teacher/info/'+val)
+    let {data} =  await server.get('/api/app/teacher/'+val)
+    return Promise.resolve(data.data.teacher)
+}
+//获取讲师评论
+const getSay = async function(val){
+    let data = await server.post('/api/app/teacher/comment',val)
     return Promise.resolve(data)
 }
 //关注老师
 const getFocus = async function(val){
-    console.log(val)
-    let {data} = await server.get(`/api/app/teacher/collect/${val}`)
-    return Promise.resolve(data)
+    let {data} = await server.get('/api/app/teacher/collect'+val)
+    return Promise.resolve(data.data)
 }
 //主讲课程
-const getLesson = async function(){
-    let {data} = await server.post({
-        url:'/api/app/teacher/mainCourse',
-        params:{
-            limit:1,
-            page:1,
-            teacher_id:249
-        }
-    })
+const getLesson = async function(val){
+    let {data} = await server.post('/api/app/teacher/mainCourse',val)
+    return Promise.resolve(data.data.list)
 }
 //测试公用接口
 const getPublic = async function(){
@@ -42,8 +58,11 @@ export {
     getPublic,
     getBanner,
     getHome,
+    getAllTeacher,
+    getTeacherInfo,
     getTeacherDetail,
-    getLesson,
-    getFocus
-
+    getFocus,
+    getChange,//筛选
+    getLesson,//课程
+    getSay,
 }

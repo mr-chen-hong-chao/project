@@ -6,6 +6,13 @@
       <van-icon name="cluster-o" @click="Zpy_share" />
     </div>
     <div class="Zpy_body">
+      <!-- 轮播图 -->
+      <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+        <van-swipe-item><img :src="DetailList.cover_img" /></van-swipe-item>
+        <van-swipe-item><img :src="DetailList.cover_img" /></van-swipe-item>
+        <van-swipe-item><img :src="DetailList.cover_img" /></van-swipe-item>
+        <van-swipe-item><img :src="DetailList.cover_img" /></van-swipe-item>
+      </van-swipe>
       <div class="Zpy_title">
         <p class="title">{{ DetailList.title }}</p>
         <p class="Zpy_free">免费</p>
@@ -15,18 +22,40 @@
           }}人已报名
         </p>
         <p class="Zpy_grey">
-          <!-- 开课时间：{{ DetailList.start_play_date | filterTime }}&emsp;{{
+          开课时间：{{ DetailList.start_play_date | filterTime }}&emsp;{{
             DetailList.end_play_date | filterTime
-          }}&emsp; -->
-          2021年1月15日 12：00
+          }}&emsp;
         </p>
+      </div>
+      <!-- 优惠券 -->
+      <div class="Zpy_quan">
+        <!-- 优惠券单元格 -->
+        <van-coupon-cell
+          :coupons="coupons"
+          :chosen-coupon="chosenCoupon"
+          @click="showList = true"
+        />
+        <!-- 优惠券列表 -->
+        <van-popup
+          v-model="showList"
+          round
+          position="bottom"
+          style="height: 90%; padding-top: 4px"
+        >
+          <van-coupon-list
+            :coupons="coupons"
+            :chosen-coupon="chosenCoupon"
+            :disabled-coupons="disabledCoupons"
+            @change="onChange"
+            @exchange="onExchange"
+          />
+        </van-popup>
       </div>
       <div class="Zpy_teach">
         <p class="Zpy_team">教学团队</p>
-        <img :src="detail.teacher_avatar" alt="" />
-        <p class="ZPy_name" v-if="DetailList.teachers_list">
+        <img :src="DetailList.cover_img" alt="" />
+        <p class="Zpy_name" v-if="DetailList.teachers_list">
           {{ DetailList.teachers_list[0].teacher_name }}
-          <!-- {{ detail.teacher_name }} -->
         </p>
       </div>
       <div class="Zpy_introduce">课程介绍</div>
@@ -39,7 +68,7 @@
               <span class="Zpy_back">回放</span>
               {{ item.periods_title }}
             </p>
-            <p class="Zpy_gray">
+            <p class="Zpy_gray" v-if="item.teachers[0]">
               {{ item.teachers[0].teacher_name }}
               {{ item.start_play }}-{{ item.end_play }}
             </p>
@@ -71,108 +100,25 @@
   </div>
 </template>
 <script>
-import { getComment } from "../../utils/api/index.js";
+const coupon = {
+  available: 1,
+  condition: '无使用门槛\n最多优惠12元',
+  reason: '',
+  value: 150,
+  name: '优惠券名称',
+  startAt: 1489104000,
+  endAt: 1514592000,
+  valueDesc: '1.5',
+  unitDesc: '元',
+};
+import { getLesson } from "@/utils/api";
 export default {
   data() {
     return {
-      Zpy_detailList: [
-        {
-          title: "qqq",
-          total_periods: 2,
-          id: 1,
-          end_play_date: "",
-          sales_num: "",
-          teachers_list: [
-            {
-              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
-              teacher_name: "李青",
-            },
-          ],
-        },
-        {
-          title: "xx2x",
-          total_periods: 4,
-          id: 2,
-          end_play_date: "",
-          sales_num: "",
-          teachers_list: [
-            {
-              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
-              teacher_name: "1111",
-            },
-          ],
-        },
-        {
-          title: "xx44x",
-          total_periods: 7,
-          id: 3,
-          end_play_date: "",
-          sales_num: "",
-          teachers_list: [
-            {
-              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
-              teacher_name: "2222",
-            },
-          ],
-        },
-        {
-          title: "xxx",
-          total_periods: 6,
-          id: 4,
-          end_play_date: "",
-          sales_num: "",
-          teachers_list: [
-            {
-              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
-              teacher_name: "3333",
-            },
-          ],
-        },
-      ],
+      Zpy_detailList: [],
       DetailList: [],
       detail: "",
-      Zpy_outline: [
-        // {
-        //   start_play:'1月2日',
-        //   end_play:'1月5日',
-        //   periods_title:'第一课时到第二课时',
-        //   teachers:[
-        //     {
-        //       teacher_name:'cc',
-        //     }
-        //   ]
-        // },
-        // {
-        //   start_play:'1月t542日',
-        //   end_play:'1月45日',
-        //   periods_title:'第一课时到第二课时',
-        //   teachers:[
-        //     {
-        //       teacher_name:'aaa',
-        //     }
-        //   ]
-        // },
-        // {
-        //   start_play:'1月4日',
-        //   end_play:'1月52日',
-        //   periods_title:'第一课时到第二课时',
-        //   teachers:[
-        //     {
-        //       teacher_name:'ee',
-        //     }
-        //   ]
-        // },
-        // {
-        //   start_play:'1月22日',
-        //   end_play:'1月45日',
-        //   periods_title:'第一课时到第二课时',
-        //   teachers:[
-        //     {
-        //       teacher_name:'hy',
-        //     }
-        //   ]
-        // },
-      ],
+      Zpy_outline: [],
       teacherName: "",
       Zpy_commentList: [], //评论
       showShare: false,
@@ -189,8 +135,14 @@ export default {
           { name: "小程序码", icon: "weapp-qrcode" },
         ],
       ],
+      // 优惠券
+      chosenCoupon: -1,
+      coupons: [coupon],
+      disabledCoupons: [coupon],
+      showList:false,
     };
   },
+  
   filters: {
     filterTime(val) {
       if (!val) {
@@ -218,33 +170,13 @@ export default {
     },
   },
   mounted() {
-    // getTeacher().then((res) => {
-    //   //   console.log(res);
-    //   res.data.data.list.forEach((item) => {
-    //     if (item.id == this.$route.query.id) {
-    //       this.Zpy_detailList = item;
-    //     }
-    //   });
-    //   //   console.log(this.Zpy_detailList.teachers_list[0]);
-    //   this.detail = this.Zpy_detailList.teachers_list[0];
-    // });
-
-getComment({page:1,limit:100}).then(res=>{
-  console.log(res);
-})
-
-
-    this.Zpy_detailList.forEach((item) => {
-      if (item.id == this.$route.query.id) {
-        this.DetailList = item;
-      }
-      // this.detail = this.DetailList.teachers_list[0];
+    getLesson().then((res) => {
+      this.Zpy_detailList = res.list.forEach((item) => {
+        if (item.id == this.$route.query.id) {
+          this.DetailList = item;
+        }
+      });
     });
-
-    // getHour({ id: 287 }).then((res) => {
-    //   //   console.log(res);
-    //   this.Zpy_outline = res.data.data;
-    // });
     this.$axios.get("/Zpy_outline.json").then((res) => {
       // console.log(res);
       this.Zpy_outline = res.data.data;
@@ -257,13 +189,20 @@ getComment({page:1,limit:100}).then(res=>{
   },
   methods: {
     goUp() {
-      // this.$router.go(-1);
       this.$router.push("/lesson"); //返回上一页
     },
     Zpy_share() {
       this.showShare = true; //点击分享
     },
-    Zpy_study(){}
+    Zpy_study() {},
+    onChange(index) {
+      this.showList = false;
+      this.chosenCoupon = index;
+    },
+    onExchange(code) {
+      this.coupons.push(coupon);
+    },
+
   },
 };
 </script>
@@ -293,6 +232,16 @@ getComment({page:1,limit:100}).then(res=>{
   width: 100%;
   overflow-y: scroll;
   height: 92.4vh;
+  .my-swipe {
+    width: 100%;
+    height: 4.5rem;
+    text-align: center;
+    background-color: white;
+    img {
+      width: 65%;
+      height: 98%;
+    }
+  }
   .Zpy_title {
     width: 100%;
     height: 2.8rem;
@@ -318,6 +267,7 @@ getComment({page:1,limit:100}).then(res=>{
   .Zpy_teach {
     height: 3rem;
     width: 100%;
+    margin-top: 0.3rem;
     background-color: white;
     padding-left: 0.2rem;
     padding-top: 0.3rem;
@@ -332,7 +282,7 @@ getComment({page:1,limit:100}).then(res=>{
       margin-top: 0.35rem;
       margin-bottom: 0.2rem;
     }
-    .ZPy_name {
+    .Zpy_name {
       margin-left: 0.3rem;
     }
   }

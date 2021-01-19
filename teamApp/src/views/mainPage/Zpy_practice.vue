@@ -46,6 +46,7 @@
 <script>
 import AppBanner from '@/components/Chc_app_banner'
 import {getPublic} from '@/utils/api'
+
 export default {
   data() {
     return {};
@@ -66,7 +67,14 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
+@mixin between{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: start;
+  align-items: center;
+}
 .Zpy_head {
   width: 100%;
   height: 7vh;
@@ -77,29 +85,26 @@ export default {
   background-color: white;
 }
 .Zpy_studyList {
-  width: 95%;
-  height: 4.5rem;
-  // background-color: hotpink;
+  height: 3.6rem;
   background-color: white;
-  padding: 0.4rem 0.3rem;
-  margin: 0.3rem 0.2rem;
+  padding: 0.2rem;
+  margin: 0.3rem;
   border-radius: 0.2rem;
   ul {
-    display: flex;
-    flex-wrap: wrap;
+    width: 100%;
     height: 100%;
+    @include between;
     li {
-      width: 25%;
-      height: 1.8rem;
-      border: 1px solid #f1f1f1;
+      width: 22%;
+      height: 45%;
+      margin:0rem 0.09rem;
       text-align: center;
+      box-shadow: 0rem 0.07rem 0.1rem 0.01rem rgb(214, 214, 214) ;
       img {
-        border-radius: 50%;
-        width: 48.9%;
-        height: 0.8rem;
-        margin-top: 0.3rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        margin: 0.2rem;
         box-shadow: grey;
-        border: 1px solid #f1f1f1;
       }
       p {
         margin-top: 0.1rem;
@@ -142,17 +147,19 @@ export default {
   }
   .Zpy_content {
     width: 100%;
-    height: 32vh;
+    min-height: 6rem;
     position: relative;
     background: url(../../../public/icon/no-message.png) no-repeat;
     background-size: 100% 90%;
     .Zpy_wait {
+      width: 100%;
+      line-height: 1rem;
       font-size: 0.3rem;
       text-align: center;
       color: orangered;
+      background: white;
 position: absolute;
-bottom: 0;
-left: 25%;
+bottom: -0.5rem;
     }
   }
 }

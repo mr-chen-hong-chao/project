@@ -10,23 +10,24 @@
       <div class="top">
         <!-- 头像 -->
         <div class="teacher-img">
-          <img :src="teacher.img" alt="" />
+          <img :src="teacher.avatar" alt="" />
         </div>
         <!-- 信息介绍 -->
         <div class="teacher-module">
-          <h3>{{ teacher.name }}老师</h3>
+          <h3>{{ teacher.real_name }}老师</h3>
           <p>
-            <span>{{ teacher.sex }}</span>
+            {{teacher.introduction}}
+            <!-- <span>{{ teacher.sex }}</span>
             <span>{{ teacher.age }}岁</span>
             <span>{{ teacher.teachingTime }}年教龄</span>
-            <span>关注数{{ teacher.focus }}</span>
+            <span>关注数{{ teacher.focus }}</span> -->
           </p>
         </div>
         <!-- 右侧关注 -->
         <!-- 动态判断是否已关注 改变关注样式与文字 -->
         <div class="add-focus" 
-        :class="isFocus == true?'yesFocus':'noFocus'"
-        @click="focus(teacher.id)">
+        :class="isFocus == 1?'yesFocus':'noFocus'"
+        @click="clickFocu(teacher.id)">
           <span class="focus-icon">
             <img src="/icon/focus.png" alt="" />
           </span>
@@ -49,6 +50,7 @@
         swipeable
         title-inactive-color="silver"
         title-active-color="black"
+        @click="tab"
       >
         <van-tab title="老师信息">
           <div class="teacher-detail">
@@ -79,17 +81,17 @@
         <van-tab title="主讲课程">
           <div class="lesson border-fine" v-for="(item,i) in lesson" :key="i">
             <div class="lesson-img">
-              <img :src="item.lessonImg" alt="">
+              <img :src="item.cover_img" alt="">
             </div>
             <div class="lesson-info">
-              <h2>{{item.lessonTitle}}</h2>
-              <p>讲师：{{item.lessonTeacher}}</p>
+              <h2>{{item.title}}</h2>
+              <p>讲师：{{teacher.real_name }}</p>
               <p>
                 <!-- 价格字体样式通过判断教程是否免费来选择样色 -->
-                <span class="price" :style="item.free == false?'color:red':'color:green'">￥{{item.lessonPrice}}</span>
+                <span class="price" :style="item.total_periods >1?'color:green':'color:red'">{{item.total_periods>1?'免费':'￥'+item.id}}</span>
                 <span class="num">
                   <van-icon name="shopping-cart-o" />
-                  {{item.lessonNum}}
+                  {{item.brows_num}}
                   </span>
               </p>
             </div>
@@ -98,37 +100,39 @@
       </van-tabs>
     </div>
     <footer>
-      <van-button color="#FB5500" size="large">立即约课</van-button>
+      <van-button color="#FB5500" size="large">立即报名</van-button>
     </footer>
   </div>
 </template>
 <script>
+import { Toast } from 'vant'
 import BackButton from "@/components/Chc_back_button";
 import {mapState,mapMutations} from 'vuex'
-import {getTeacherDetail,getLesson,getFocus} from '@/utils/api'
+import {getTeacherInfo,getTeacherDetail,getLesson,getFocus,getSay} from '@/utils/api'
 export default {
   name: "",
   data() {
     return {
       // 老师基本信息
       teacher: {
-        img: "./img/小新.jpg",
-        name: "李湘",
-        sex: "女",
-        age: "32",
-        teachingTime: "10年教龄",
-        focus: 1012,
-        teacherTag: [
-          "创造力丰富",
-          "为人和善",
-          "讲课方式新颖",
-          "创造力丰富",
-          "讲课方式新颖",
-        ],
-        id:0
+        // img: "./img/小新.jpg",
+        // name: "李湘",
+        // alt:'',
+        // // sex: "女",
+        // // age: "32",
+        // // teachingTime: "10年教龄",
+        // // focus: 1012,
+        // teacherTag: [
+        //   "创造力丰富",
+        //   "为人和善",
+        //   "讲课方式新颖",
+        //   "创造力丰富",
+        //   "讲课方式新颖",
+        // ],
+        // id:0
       },
       // 切换信息下标
-      active: 0,
+      active: null,
       // 老师详细信息
       teacherDetail: [
         {
@@ -190,33 +194,12 @@ export default {
       ],
       // 课程
       lesson:[
-        {
-          lessonImg:'./img/lesson1.png',
-          lessonTitle:'给你好声音的密码',
-          lessonTeacher:'小楼',
-          lessonPrice:'1998.00',
-          lessonNum:1256,
-          free:false
-        },
-        {
-          lessonImg:'./img/lesson1.png',
-          lessonTitle:'七夕训练让声音更具穿透力',
-          lessonTeacher:'小楼',
-          lessonPrice:'免费',
-          lessonNum:778,
-          free:true
-        },
-        {
-          lessonImg:'./img/lesson1.png',
-          lessonTitle:'想听我的声音吗',
-          lessonTeacher:'小楼',
-          lessonPrice:'1998.00',
-          lessonNum:45,
-          free:false
-        }
+        
       ],
+      isFocus:null,
       yesFocus:'yesFocus',  //已关注样式
       noFocus:'noFocus',  //未关注样式
+      
     };
   },
   components: {
@@ -225,28 +208,91 @@ export default {
   props: [],
   computed: {
     //关注状态
-    ...mapState(['isFocus'])
+    // ...mapState(['isFocus'])
   },
   created() {},
   mounted(){
-    getTeacherDetail(this.$route.params.id).then(res=>{
-      console.log(res)
+    this.active = 0 //挂载时切换下标为0
+    //发送老师详情请求
+    getTeacherDetail(this.$route.query.id).then(res=>{
+      this.teacher =res
+      this.teacher.teacherTag= [
+          "创造力丰富",
+          "为人和善",
+          "讲课方式新颖",
+          "创造力丰富",
+          "讲课方式新颖",
+        ]
     })
-    // getLesson().then(res=>{
-    //   console.log(res)
-    // })
-    getFocus(this.$route.params.id).then(res=>{
-      console.log(res)
+    //获取老师关注状态
+    getFocus(this.$route.query.id).then(res=>{
+      this.isFocus = res.flag
     })
-    
   },
   methods: {
-    ...mapMutations(['changeFocus']),
-    focus(id){
-      let val={id:id}
-      this.changeFocus(val)
+    ...mapMutations(['changeFocus']),//在vuex操作关注老师id，已废弃
+    clickFocu(id){
+      // this.changeFocus(id) //废弃
+      this.isFocus = !this.isFocus
+      if(this.isFocus){
+        Toast({
+          message: '关注成功',
+          icon: 'like',
+          duration:600
+        })
+
+      }else{
+        Toast({
+          message: '取消关注',
+          icon: 'like-o',
+          duration:600
+        })
+      }
+    },
+    tab(i){
+      this.active = i
     }
   },
+  watch:{
+    active(i){
+      if(i ===0){
+        getTeacherInfo(this.$route.query.id).then(res=>{
+        })
+      }else if(i ===1){
+        let val = {
+          limit:'',
+          page:'',
+          teacher_id:this.$route.query.id
+        }
+        getSay(val).then(res=>{
+        })
+      }else if(i ===2){
+        let val = {
+          limit:'',
+          page:'',
+          id:this.$route.query.id
+        }
+        getLesson(val).then(res=>{
+          // 循环所有课程，寻找包含教师id的课程
+          //如果有能找到就添加，找不到就随机添加
+          res.forEach((item,index,array)=>{
+            if(item.teachers_list[0].id ==this.$route.query.id){
+              this.lesson.push(item)
+            }
+          })
+          var length = parseInt(Math.random())
+          if(this.lesson.length ===0){
+            for(var i=0;i<=2;i++){
+              let n = parseInt(Math.random()*res.length)
+              this.lesson.push(res[n])
+            }
+
+          }
+          
+        })
+      }
+    }
+  }
 };
 </script>
 

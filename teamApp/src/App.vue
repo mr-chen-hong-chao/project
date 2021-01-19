@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <router-view />
-    <email-btn @tab='tabBtn'></email-btn>
-    <popup :popShow='show' @hide='tabHide()'></popup>
+    <email-btn></email-btn>
+    <popup :popShow='emailState' @hide='tabHide()'></popup>
     <loading></loading>
   </div>
 </template>
@@ -10,11 +10,15 @@
   import EmailBtn from '@/components/Email_btn'
   import Popup from '@/components/Chc_popup'
   import Loading from '@/components/Loading'
+  import {mapState} from 'vuex'
   export default {
     data() {
       return {
-        show: false
+        
       }
+    },
+    computed:{
+      ...mapState(['emailState'])
     },
     components: {
       EmailBtn,
@@ -22,12 +26,6 @@
       Loading
     },
     methods: {
-      tabBtn() {
-        this.show = true
-      },
-      tabHide() {
-        this.show = false
-      }
     },
     
     

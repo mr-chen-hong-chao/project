@@ -1,13 +1,14 @@
 <template>
-  <div id="goodTeacher">
+  <div id="teacher-list">
     <app-banner></app-banner>
-    <div class="content">
+    <div class="main">
       <div class="nav">
         <van-tabs @click="tabType" title-active-color="orange">
           <van-tab v-for="(item, i) in nav" :key="i" :title="item"> </van-tab>
         </van-tabs>
         <span @click="filter"><van-icon name="filter-o" />筛选</span>
       </div>
+      <!-- 模态框 -->
       <van-popup v-model="popShow" position="top">
         <van-dropdown-menu active-color="orange">
           <van-dropdown-item title="分类" ref="item">
@@ -42,18 +43,36 @@
           </van-dropdown-item>
         </van-dropdown-menu>
       </van-popup>
+      <div class="content" @scroll="contentScroll">
+        <ul>
+          <li
+            v-for="(item, i) in list"
+            :key="i"
+            class="box-shadow-bottom"
+            @click="getTeacherDetail(item.id)"
+          >
+            <img :src="item.avatar" alt="" />
+            <div class="info">
+              <h3>{{ item.real_name }}</h3>
+              <p class="text-overflow-ell">{{ item.introduction }}</p>
+            </div>
+          </li>
+        </ul>
+        <p class="bottom-info" v-show="bottomInfo">没有更多信息了</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import AppBanner from "@/components/Chc_app_banner";
+import { getAllTeacher } from "@/utils/api";
 export default {
   name: "",
   data() {
     return {
       nav: ["全部", "英语", "语文", "数学", "政治", "地理", "历史", "物理"],
-      popShow: false,    //模态框状态
+      popShow: false, //模态框状态
       value1: 0,
       value2: "a",
       type: [
@@ -68,6 +87,10 @@ export default {
         type1: "",
         type2: "",
       },
+      page: 1,
+      limit: 10,
+      list: [],
+      bottomInfo:false
     };
   },
   components: {
@@ -75,7 +98,13 @@ export default {
   },
   props: [],
   computed: {},
-  created() {},
+  created() {
+    let val = {
+      page: this.page,
+      limit: this.limit,
+    };
+    this.getList(val);
+  },
   methods: {
     // 切换分类
     tabType(i) {
@@ -83,7 +112,7 @@ export default {
     },
     //筛选
     filter() {
-        this.popShow = true
+      this.popShow = true;
     },
     //确认条件
     onConfirm() {},
@@ -98,13 +127,51 @@ export default {
           break;
       }
       if (this.typeData.type1 != "" && this.typeData.type2 != "") {
-          this.popShow = false
-          this.typeData.type1=''
-          this.typeData.type2=''
+        this.popShow = false;
+        this.typeData.type1 = "";
+        this.typeData.type2 = "";
       } else {
-          this.popShow = true
+        this.popShow = true;
       }
-      
+    },
+    //跳转到详情
+    getTeacherDetail(id) {
+      this.$router.push({
+        path:'/teacher-detail',
+        query:{
+          id:id
+        }
+      })
+    },
+    //内容滚动加载更多
+    contentScroll(e) {
+      // console.log(e.target.scrollTop)
+      if (e.target.scrollTop > 400 &&this.page <= 2) {
+        let val = {
+          page: this.page+=1,
+          limit: this.limit,
+        };
+        this.getList(val);
+      }else if(e.target.scrollTop > 700){
+        this.bottomInfo=true
+      }else{
+        this.bottomInfo=false
+      }
+      console.log(this.bottomInfo)
+    },
+    //获取列表信息
+    getList(val) {
+      getAllTeacher(val).then((res) => {
+          if(this.list.length ==0){
+            this.list = res
+          }else{
+           res.forEach((item,i)=>{
+             this.list.push(item)
+           })
+          }
+          
+        console.log(this.list);
+      });
     },
   },
 };
@@ -117,13 +184,14 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-@mixin between {
+@mixin around {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
+  flex-flow: row wrap;
+  justify-content: space-around;
   align-items: center;
 }
-#goodTeacher {
+
+#teacher-list {
   width: 100%;
   height: 100%;
   .nav {
@@ -137,8 +205,10 @@ export default {
       width: 85%;
     }
   }
-  .content {
+
+  .main {
     width: 100%;
+    border: 1px solid red;
     height: calc(100% - 1rem);
     position: relative;
     /deep/.van-overlay {
@@ -165,6 +235,42 @@ export default {
             }
           }
         }
+      }
+    }
+    .content {
+      width: 100%;
+      height: calc(100% - 1rem);
+      overflow: auto;
+      padding: 0.2rem;
+      ul {
+        @include around;
+        li {
+          width: 100%;
+          margin: 0.15rem 0rem;
+          padding: 0.4rem 0.2rem;
+          border-radius: 0.2rem;
+          background: white;
+          display: flex;
+          justify-content: space-between;
+          img {
+            width: 0.9rem;
+            height: 0.9rem;
+            border-radius: 50%;
+            border: 1px solid orange;
+            overflow: hidden;
+          }
+          .info {
+            width: calc(100% - 1.2rem);
+            h3 {
+              line-height: 0.7rem;
+            }
+          }
+        }
+      }
+      .bottom-info{
+        line-height: 1rem;
+        text-align: center;
+        color: silver;
       }
     }
   }

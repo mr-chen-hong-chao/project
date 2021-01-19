@@ -12,9 +12,13 @@
         <van-popup
           v-model="show"
           position="top"
-          :style="{ height: '50%' }"
+          :style="{ height: '20%' }"
           :overlay-style="{ background: 'transparent' }"
         >
+          <div class="Zpy_button">
+            <button class="Zpy_reset">重置</button
+            ><button class="Zpy_true">确定</button>
+          </div>
         </van-popup>
         <!-- 排序弹框 -->
         <van-popup
@@ -24,8 +28,8 @@
           :overlay-style="{ background: 'transparent' }"
         >
           <div class="Zpy_sort">
-            <p>综合排序</p>
-            <p>最新</p>
+            <p @click="Zpy_all">综合排序</p>
+            <p @click="Zpy_newtime">最新</p>
             <p @click="Zpy_hot">最热</p>
             <p @click="Zpy_up">价格从高到低</p>
             <p @click="Zpy_down">价格从低到高</p>
@@ -35,17 +39,17 @@
         <van-popup
           v-model="isShow2"
           position="top"
-          :style="{ height: '30%' }"
+          :style="{ height: '25%' }"
           :overlay-style="{ background: 'transparent' }"
         >
           <div class="Zpy_change">
-            <button>全部</button>
-            <button>大班课</button>
-            <button>公开课</button>
-            <div class="Zpy_button">
-              <button class="Zpy_reset">重置</button
-              ><button class="Zpy_true">确定</button>
-            </div>
+            <button
+              v-for="(item, index) in Zpy_changeList"
+              :key="index"
+              @click="Zpy_changeType"
+            >
+              {{ item.name }}
+            </button>
           </div>
         </van-popup>
       </div>
@@ -59,17 +63,22 @@
             @click="Zpy_content_detail(item.id)"
           >
             <p class="Zpy_title">{{ item.title }}</p>
-            <!-- <p>{{item.start_play_date | filterTime}}&emsp;{{item.end_play_date | filterTime}}|&emsp;共{{ item.total_periods }}课时</p> -->
-            <p>1970年01月19日 21:11|&emsp;共5课时</p>
-            <p class="Zpy_img">
-              <img src="/icon/user_bg.ab306a5c.png" alt="" />
+            <p>
+              {{ item.start_play_date | filterTime }}&emsp;{{
+                item.end_play_date | filterTime
+              }}
+            </p>
+            <p>共{{ item.total_periods }}课时</p>
+            <div class="Zpy_img">
+              <img :src="item.cover_img" alt="" class="Zpy_teacherImg" />
               &emsp;&emsp;
               <span class="Zpy_name">{{
                 item.teachers_list[0].teacher_name
               }}</span>
-            </p>
+            </div>
             <p class="Zpy_num">
               {{ item.sales_num }}人已报名
+              <span class="Zpy_price">价格{{ item.price }}</span>
               <span class="Zpy_free" @click.stop="Zpy_free(item.id)">免费</span>
             </p>
           </li>
@@ -79,70 +88,18 @@
   </div>
 </template>
 <script>
-import {getPublic} from '@/utils/api'
 import AppBanner from '@/components/Chc_app_banner'
+import { getPublic, getChange, getLesson } from "@/utils/api";
 export default {
   data() {
     return {
-      teacherList: [
-        {
-          title: "qqq",
-          total_periods: 2,
-          id: 1,
-          end_play_date: "",
-          sales_num: 12,
-          teachers_list: [
-            {
-              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
-              teacher_name: "李青",
-            },
-          ],
-        },
-        {
-          title: "xx2x",
-          total_periods: 4,
-          id: 2,
-          end_play_date: "",
-          sales_num: 65,
-          teachers_list: [
-            {
-              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
-              teacher_name: "1111",
-            },
-          ],
-        },
-        {
-          title: "xx44x",
-          total_periods: 7,
-          id: 3,
-          end_play_date: "",
-          sales_num: 56,
-          teachers_list: [
-            {
-              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
-              teacher_name: "2222",
-            },
-          ],
-        },
-        {
-          title: "xxx",
-          total_periods: 6,
-          id: 4,
-          end_play_date: "",
-          sales_num: 67,
-          teachers_list: [
-            {
-              teacher_avatar: "../../../public/user_bg.ab306a5c.png",
-              teacher_name: "3333",
-            },
-          ],
-        },
-      ],
+      teacherList: [],
+      teacherListAll: [],
       teacherContent: {},
       show: false,
       isShow: false,
       isShow2: false,
-      overlay: false,
+      Zpy_changeList: [], //筛选
     };
   },
   components:{
@@ -171,20 +128,18 @@ export default {
       if (m < 10) {
         m = "0" + m;
       }
-      return mm + "月" + d + "日" + " " + h + ":" + m;
+      return y + "年" + mm + "月" + d + "日" + " " + h + ":" + m;
     },
   },
-  created(){
-    //测试接口
-    getPublic().then(res=>{
-    })
+  created() {
+    
   },
   methods: {
     Zpy_search() {
       this.$router.push({ path: "/search" });
     },
     Zpy_free(id) {
-      console.log(id);
+      // console.log(id);
       this.$router.push({ path: "/free", query: { id: id } });
     },
     Zpy_content_detail(id) {
@@ -202,20 +157,57 @@ export default {
       this.isShow2 = true;
     },
     //价格从高到低
-    Zpy_up() {},
+    Zpy_up() {
+      // this.teacherList =
+      this.teacherList.sort((a, b) => {
+        return b.price - a.price;
+      });
+    },
     //价格从低到高
-    Zpy_down() {},
+    Zpy_down() {
+      // this.teacherList =
+      this.teacherList.sort((a, b) => {
+        return a.price - b.price;
+      });
+    },
+    //最热
     Zpy_hot() {
-      this.teacherList = this.teacherList.sort((a, b) => {
+      // this.teacherList =
+      this.teacherList.sort((a, b) => {
         return b.sales_num - a.sales_num;
       });
     },
+    //最新
+    Zpy_newtime() {
+      // this.teacherList =
+      this.teacherList.sort((a, b) => {
+        return b.start_play_date - a.start_play_date;
+      });
+      // this.isShow = false;
+    },
+    //综合
+    Zpy_all() {
+      this.teacherList = JSON.parse(JSON.stringify(this.teacherListAll));
+    },
+    //筛选
+    Zpy_change() {
+      this.isShow2 = true;
+    },
+    Zpy_changeType(){
+
+    }
   },
   mounted() {
-    // getTeacher().then((res) => {
-    //   console.log(res);
-    //   this.teacherList = res.data.data.list;
-    // });
+    //筛选
+    getChange().then((res) => {
+      console.log(res.appCourseType);
+      this.Zpy_changeList = res.appCourseType;
+    });
+    getLesson().then((res) => {
+      console.log(res.list);
+      this.teacherList = res.list;
+      this.teacherListAll = res.list;
+    });
   },
 };
 </script>
@@ -250,32 +242,7 @@ export default {
         margin-top: 2rem;
       }
     }
-    
-    .Zpy_sort {
-      width: 100%;
-      text-align: center;
-      color: grey;
-      p {
-        height: 1rem;
-        line-height: 1rem;
-        border-bottom: 1px solid #f0f2f5;
-      }
-    }
-    .Zpy_change {
-      width: 100%;
-      height: 3rem;
-      button {
-        background-color: gainsboro;
-        color: grey;
-        border: none;
-        border-radius: 0.1rem;
-        width: 1.5rem;
-        height: 0.7rem;
-        line-height: 0.7rem;
-        margin-left: 0.3rem;
-        text-align: center;
-      }
-      .Zpy_button {
+    .Zpy_button {
       width: 100%;
       display: inline-flex;
       padding: 0 0.3rem;
@@ -294,6 +261,30 @@ export default {
         background-color: orangered;
       }
     }
+  }
+  .Zpy_sort {
+    width: 100%;
+    text-align: center;
+    color: grey;
+    p {
+      height: 1rem;
+      line-height: 1rem;
+      border-bottom: 1px solid #f0f2f5;
+    }
+  }
+  .Zpy_change {
+    width: 100%;
+    height: 3rem;
+    button {
+      background-color: gainsboro;
+      color: grey;
+      border: none;
+      border-radius: 0.1rem;
+      width: 1.5rem;
+      height: 0.7rem;
+      line-height: 0.7rem;
+      margin-left: 0.3rem;
+      text-align: center;
     }
   }
   .Zpy_body {
@@ -329,11 +320,11 @@ export default {
           .Zpy_img {
             height: 1.2rem;
             line-height: 1.2rem;
-            margin-top: 0.3rem;
+            margin-top: 0.1rem;
             border-bottom: 1px solid #f5f5f5;
-            img {
-              width: 0.5rem;
-              height: 0.5rem;
+            .Zpy_teacherImg {
+              width: 0.7rem;
+              height: 0.7rem;
             }
             .Zpy_name {
               color: grey;
@@ -344,10 +335,14 @@ export default {
             font-size: 0.3rem;
             height: 0.9rem;
             line-height: 0.9rem;
+            .Zpy_price {
+              color: red;
+              font-size: 0.3rem;
+            }
             .Zpy_free {
               color: #44a426;
               font-size: 0.33rem;
-              margin-left: 3.5rem;
+              margin-left: 1.5rem;
             }
           }
         }
