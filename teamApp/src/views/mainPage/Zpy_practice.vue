@@ -1,6 +1,6 @@
 <template>
   <div class="Zpy_practice">
-    <div class="Zpy_head">练习</div>
+    <app-banner></app-banner>
     <div class="Zpy_studyList">
       <ul>
         <li @click="Zpy_testContent">
@@ -44,6 +44,7 @@
   </div>
 </template>
 <script>
+import AppBanner from '@/components/Chc_app_banner'
 import {getPublic} from '@/utils/api'
 export default {
   data() {
@@ -54,6 +55,9 @@ export default {
     getPublic().then(res=>{
       console.log(res)
     })
+  },
+  components:{
+    AppBanner,
   },
   methods: {
       Zpy_testContent(){

@@ -1,6 +1,6 @@
 <template>
   <div id="app-banner">
-      <van-nav-bar class="opacity" :title="banner" left-text="返回" left-arrow @click-left='back'>
+      <van-nav-bar class="opacity" :title="$route.meta.title" left-text="" left-arrow @click-left='back'>
         <template #right >
           <van-icon v-show="show" name="search" size="18" />
         </template>
@@ -17,9 +17,10 @@ export default {
     };
   },
   components: {},
-  props: ["banner"],
+  props: [],
   computed: {},
-  created() {},
+  created() {
+  },
   methods: {
     back(){
       this.$router.back()
@@ -30,7 +31,9 @@ export default {
 </script>
 <style lang='scss' scoped>
 #app-banner{
-  
+  /deep/.van-icon{
+    color: black;
+  }
     
 }
 </style>

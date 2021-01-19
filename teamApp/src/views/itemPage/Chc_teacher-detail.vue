@@ -105,7 +105,7 @@
 <script>
 import BackButton from "@/components/Chc_back_button";
 import {mapState,mapMutations} from 'vuex'
-import {getTeacherDetail} from '@/utils/api'
+import {getTeacherDetail,getLesson,getFocus} from '@/utils/api'
 export default {
   name: "",
   data() {
@@ -232,6 +232,13 @@ export default {
     getTeacherDetail(this.$route.params.id).then(res=>{
       console.log(res)
     })
+    // getLesson().then(res=>{
+    //   console.log(res)
+    // })
+    getFocus(this.$route.params.id).then(res=>{
+      console.log(res)
+    })
+    
   },
   methods: {
     ...mapMutations(['changeFocus']),

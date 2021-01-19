@@ -1,6 +1,7 @@
 <template>
   <div id='item-banner'>
-      {{banner}}
+      {{title}}
+      <span v-if='title =="名师阵容"' class="more" @click="getMore">更多&gt;</span>
  </div>
 </template>
 
@@ -15,7 +16,7 @@ export default {
   components:{
 
   },
-props:['banner'],
+props:['title'],
   computed:{
 
   },
@@ -23,7 +24,9 @@ props:['banner'],
 
   },
   methods:{
-
+    getMore(){
+      this.$router.push('/goodTeacher')
+    }
   },
  }
 </script>
@@ -35,5 +38,8 @@ props:['banner'],
     padding-left: 0.2rem;
     font-size: 0.3rem;
     margin: 0.2rem 0rem;
+    .more{
+      float: right;
+    }
 }
 </style>

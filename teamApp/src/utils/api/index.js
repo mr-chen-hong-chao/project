@@ -13,19 +13,29 @@ const getHome = async function(){
 }
 //请求老师详情
 const getTeacherDetail = async function(val){
-    let data =  await server({
-        methods:'Get',
-        url:'/api/app/teacher/info/id', 
+    let {data} =  await server.get('/api/app/teacher/info/'+val)
+    return Promise.resolve(data)
+}
+//关注老师
+const getFocus = async function(val){
+    console.log(val)
+    let {data} = await server.get(`/api/app/teacher/collect/${val}`)
+    return Promise.resolve(data)
+}
+//主讲课程
+const getLesson = async function(){
+    let {data} = await server.post({
+        url:'/api/app/teacher/mainCourse',
         params:{
-            id:val
+            limit:1,
+            page:1,
+            teacher_id:249
         }
     })
-    return Promise.resolve(data)
 }
 //测试公用接口
 const getPublic = async function(){
-    let data = await server.get('/api/app/recommend/appIndex')
-
+    let {data} = await server.get('/api/app/recommend/appIndex')
     return Promise.resolve(data)
 }
 export {
@@ -33,5 +43,7 @@ export {
     getBanner,
     getHome,
     getTeacherDetail,
+    getLesson,
+    getFocus
 
 }

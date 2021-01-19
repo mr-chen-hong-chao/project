@@ -8,16 +8,25 @@ const routes =[
     {
         path:'/lesson',
         name:'lesson',
+        meta:{
+            title:'特色课'
+        },
         component:()=>import('@/views/mainPage/Zpy_lesson')
     },
     {
         path:'/history',
         name:'history',
+        meta:{
+            title:'约课记录'
+        },
         component:()=>import('@/views/mainPage/Qyp_history')
     },
     {
         path:'/practice',
         name:'practice',
+        meta:{
+            title:'练习'
+        },
         component:()=>import('@/views/mainPage/Zpy_practice')
     },
     {

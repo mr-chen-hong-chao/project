@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <div id="email-button" @click="changePop">
-      <email-btn></email-btn>
-    </div>
+    <email-btn @tab='tabBtn'></email-btn>
     <popup :popShow='show' @hide='tabHide()'></popup>
     <loading></loading>
   </div>
@@ -24,13 +22,15 @@
       Loading
     },
     methods: {
-      changePop() {
+      tabBtn() {
         this.show = true
       },
       tabHide() {
         this.show = false
       }
-    }
+    },
+    
+    
   }
 </script>
 <style lang="scss">
@@ -40,11 +40,5 @@
     -moz-osx-font-smoothing: grayscale;
     width: 100%;
     height: 100%;
-
-    #email-button {
-      position: fixed;
-      right: 0.3rem;
-      bottom: 1.5rem;
-    }
   }
 </style>

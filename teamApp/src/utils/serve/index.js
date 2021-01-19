@@ -3,10 +3,11 @@ import store from '@/store'
 import {Guid} from './guid'
 const server = axios.create({
     baseURL:'http://120.53.31.103:84',
-    timeout:5000
+    timeout:10000
 })
 //请求拦截
 server.interceptors.request.use(config=>{ 
+    localStorage.setItem('token','sdfsef-4564-werf45w-wefwef')
     if(localStorage.getItem('token')){
         // config.headers.token = localStorage.getItem('token')
     }

@@ -38,7 +38,6 @@ export default new Vuex.Store({
     },
     //切换loading状态
     tabLoadingShow(state,val){
-      console.log(val)
       state.loadingShow = val
     }
       

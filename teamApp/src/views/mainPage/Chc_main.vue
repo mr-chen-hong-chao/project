@@ -21,7 +21,7 @@
     </header>
     <!-- 讲师列表 -->
     <div class="list" v-for="(item, i) in data" :key="i">
-      <banner :banner="item.channel_info.name"></banner>
+      <banner :title="item.channel_info.name"></banner>
       <div class="item">
         <ul>
           <li
@@ -106,9 +106,9 @@ export default {
       this.swiper = res;
     });
     getHome().then((res) => {
+      console.log(res)
       this.hot = res.splice(1, 1);
       this.data = res;
-      console.log(this.hot);
     });
   },
   methods: {
