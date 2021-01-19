@@ -18,13 +18,19 @@
         </div>
       </van-form>
     </div>
+    <thirds class="thirds"></thirds>
+
   </div>
 </template>
 <script>
+  import thirds from '@/components/Qyp_login_third party'
   import {
     Toast
   } from 'vant'
   export default {
+    components: {
+      thirds
+    },
     data() {
       return {
         mobile: '',
@@ -60,6 +66,7 @@
     width: 100vw;
     height: 100vh;
     background-color: white;
+    position: relative;
   }
 
   .logo {
@@ -94,5 +101,13 @@
 
       margin-bottom: 5vh;
     }
+  }
+  .thirds{
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    width: 100%;
+    // background-color: #fff;
+
   }
 </style>

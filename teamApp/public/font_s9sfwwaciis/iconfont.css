@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1610966391122'); /* IE9 */
+  src: url('iconfont.eot?t=1610966391122#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAPIAAsAAAAAB9wAAAN5AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqDRIMLATYCJAMMCwgABCAFhG0HNhvRBhHVm8PI/nJA9a7RD2DlFlLSqtWwjcdhW7Hv+EL3809TlxTncwblVdVIhgsQrxNzoDgB0AABMXGzgi8eHHLw+ecBBm6hl/CkBv2AZn2tI/pk31Uh+tK2XrykhYRF6lvXjuxEYQz5/7kc31Xi87emy9o09uajXoBxQIHtidGBNEEKpJegNoxd0BJPAwGghDVPJDE5sxBycJiTCADS2dZSB3nGAt5QTyAHgVixkoNMhAA5HUXPApgQfJ68gX9ygEJgMM/KbU5qROwzw+cwSSOhkg2BNJ0LAFsHMACeAA6Q6kpPKViU8cSgVI28uVwEBwGdKq7RBEpNL1p/eAAFAYgIs1YNAHBFBnpRKocHFHiu+qpVDzdeBCADMB7YiUmGTQRivJ5CYWKL9D3sv9n+evEshsrpVwsPvtRC342xG20X+e3wmGO+zmuV21LHrZ4z97mo9oSQbWGqZQfM1wcvd17jscFHMlsVtMVhcd/r14uvXi28dq1ozAmXouILN+qXrx60ZswqaaVqdGhqbvrBwpJlx5zGmMy3vnHJGKfrFY5uddVReZZD7jSl80T3oeFZ5UechmgPOeicUR7uNpQnpTedGdLd3XyoqvW5sv/PfnB2tr1q2uZ3S56xb9Nq/epVh56O/Wmeq5pq7o6YqVnn2gl9qERXTKCdlszbQ6Lm6ctrA81LShKbR9Sjyb4ZFjVt0ityKPJxdWg6/3AqPbGCSUhN6xHv7dDWN+r7Kjw52mPlXInqEbPOoyP/bLUbtD02DPujFgCgwT4zhOSyLxj/vu8gZ8ew2hqdyG9yFQcA3O3wnjCswdE9BjnovZjws1QdW7imMa2MK0pHaUQZMvFDXBSAcu6ABgX03R/uM4LERSDnKggUMlgBgxyOCCd5ggAVAkGEHDGghIeU9SoY6AIGwhUA3A0DQKBrA1Bo4wAw6DqHcNI9EGDsHYjQjYESxcRgRxWczfTlSlgxtlD/QTcxCNvOl7D+hXJ0FaU1AfmHNOg45EmWzz8xIE0xZ5hkwSxAUPTwAOehcxE6igYbThRzV6apqMIpaaJfXVwJK8YW1H+gmxiE15kvhfe/UI6uogZMVfqHNOjeQS6RdUCextAJcyuXDJMsMAsgKHrwAC50ViaCrnqYwYYTakCqK6WonehqTJY3+/fbxWp1YR62jRJGODbvjzPqRYd8tQIAAAA=') format('woff2'),
+  url('iconfont.woff?t=1610966391122') format('woff'),
+  url('iconfont.ttf?t=1610966391122') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1610966391122#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-qq:before {
+  content: "\e60f";
+}
+
+.icon-weixin1:before {
+  content: "\e514";
+}
+
