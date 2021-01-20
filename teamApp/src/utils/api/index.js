@@ -21,6 +21,16 @@ const getLesson = async function(){
     let {data} = await server.get('/api/app/courseBasis?page=1&limit=10&')
     return Promise.resolve(data.data)
 }
+//练习 考点专练分类
+const getClassify = async function(){
+    let {data} = await server.get('/api/app/book/classify?')
+    return Promise.resolve(data.data)
+}
+//练习 考点专练内容
+const getList = async function(){
+    let {data} = await server.get('/api/app/book/list/0?page=1&limit=10&order=id&')
+    return Promise.resolve(data.data)
+}
 //请求老师详情
 const getTeacherDetail = async function(val){
     let data =  await server({
@@ -45,4 +55,6 @@ export {
     getTeacherDetail,
     getChange,//筛选
     getLesson,//课程
+    getClassify,//练习
+    getList,//练习 考点专练内容
 }
