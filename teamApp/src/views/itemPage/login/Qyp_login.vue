@@ -23,10 +23,15 @@
   </div>
 </template>
 <script>
+  //密码： tgx282799389
   import thirds from '@/components/Qyp_login_third party'
   import {
     Toast
   } from 'vant'
+
+  import {
+    getLogin
+  } from '@/utils/api/index.js';
   export default {
     components: {
       thirds
@@ -39,21 +44,31 @@
     },
     mounted() {},
     methods: {
-      // 登录
+      //密码登录
       login() {
-        this.$http.login({
-          mobile: this.mobile,
-          password: this.password,
-          type: 1
-        }).then(res => {
-          Toast(res.data.msg)
-          if (res.data.code == 200) {
-            localStorage.setItem('token', res.data.data.remember_token)
-            this.$router.push('/my')
-          } else {
-            Toast.fail(res.data.msg)
+        if (this.mobile == '' || this.password == '') {
+          Toast('账号或密码不能为空！')
+        } else {
+          let params = {
+            mobile: this.mobile,
+            password: this.password,
+            type: 1
           }
-        })
+          getLogin(params)
+            .then((res) => {
+              if (res.code == 200) {
+                Toast.success(res.msg)
+                this.$store.commit('add_user',res.data)
+                this.$store.commit('add_token',res.data.remember_token)
+                  this.$router.push('/user')
+              }else{
+                Toast.fail(res.msg)
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       },
       toRegister() {
         this.$router.push('/Qyp_register')
@@ -102,7 +117,8 @@
       margin-bottom: 5vh;
     }
   }
-  .thirds{
+
+  .thirds {
     position: absolute;
     bottom: 1rem;
     left: 0;

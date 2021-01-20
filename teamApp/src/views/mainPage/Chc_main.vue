@@ -1,5 +1,6 @@
 <template>
   <div id="main">
+    <home-Top></home-Top>
     <!-- 头部 -->
     <header>
       <!-- 轮播 -->
@@ -21,7 +22,7 @@
     </header>
     <!-- 讲师列表 -->
     <div class="list" v-for="(item, i) in data" :key="i">
-      <banner :banner="item.channel_info.name"></banner>
+      <banner :title="item.channel_info.name"></banner>
       <div class="item">
         <ul>
           <li
@@ -63,6 +64,7 @@
 </template>
 
 <script>
+import HomeTop from '@/components/Home-top'
 import Banner from "@/components/Item_banner";
 import { getBanner, getHome,} from "@/utils/api";
 export default {
@@ -94,6 +96,7 @@ export default {
   },
   components: {
     Banner,
+    HomeTop
   },
   props: [],
   computed: {},
@@ -106,9 +109,9 @@ export default {
       this.swiper = res;
     });
     getHome().then((res) => {
+      console.log(res)
       this.hot = res.splice(1, 1);
       this.data = res;
-      console.log(this.hot);
     });
   },
   methods: {
@@ -119,8 +122,8 @@ export default {
     //跳转到老师详情
     getTeacherDetail(teacherId) {
       this.$router.push({
-        name:'teacher-detail',
-        params:{
+        path:'teacher-detail',
+        query:{
           id:teacherId
         }
       })
