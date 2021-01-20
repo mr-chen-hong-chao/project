@@ -1,11 +1,7 @@
 <template>
   <div id="Zpy_lesson">
     <div class="Zpy_head">
-      <div class="Zpy_title">
-        <span>特色课</span>
-        <span><van-icon name="search" @click="Zpy_search" /></span>
-        <!-- 点击跳转搜索页面 -->
-      </div>
+      <app-banner></app-banner>
       <div class="Zpy_type">
         <ul>
           <li @click="Zpy_type">分类&emsp;<van-icon name="arrow-down" /></li>
@@ -92,6 +88,7 @@
   </div>
 </template>
 <script>
+import AppBanner from '@/components/Chc_app_banner'
 import { getPublic, getChange, getLesson } from "@/utils/api";
 export default {
   data() {
@@ -104,6 +101,9 @@ export default {
       isShow2: false,
       Zpy_changeList: [], //筛选
     };
+  },
+  components:{
+    AppBanner,
   },
   filters: {
     filterTime(val) {
@@ -132,10 +132,7 @@ export default {
     },
   },
   created() {
-    //测试接口
-    getPublic().then((res) => {
-      // console.log(res);
-    });
+    
   },
   methods: {
     Zpy_search() {
@@ -223,19 +220,9 @@ export default {
     width: 100%;
     background-color: white;
     height: 2rem;
-    .Zpy_title {
-      width: 100%;
-      height: 1rem;
-      line-height: 1rem;
-      font-size: 0.4rem;
-      text-align: center;
-      display: inline-flex;
-      color: grey;
-      span {
-        width: 50%;
-        text-align: right;
-      }
-    }
+    // position: fixed;
+    // top: 0;
+    // left: 0;
     .Zpy_type {
       height: 1rem;
       line-height: 1rem;

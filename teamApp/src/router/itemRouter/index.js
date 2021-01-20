@@ -1,6 +1,6 @@
 //项目路由
 const routes = [
-    // 详情路由
+    //老师详情
     {
         path: '/teacher-detail',
         name: 'teacher-detail',
@@ -9,19 +9,25 @@ const routes = [
         },
         component: () => import('@/views/itemPage/Chc_teacher-detail')
     },
-    // 辅导路由
     {
         path: '/tutoring',
         name: 'tutoring',
+        meta:{
+            title:'一对一辅导'
+        },
         component: () => import('@/views/itemPage/Chc_tutoring')
     },
     // 学习日历路由
     {
         path: '/calendar',
         name: 'calendar',
+        meta:{
+            title:'学习日历'
+        },
         component: () => import('@/views/itemPage/Chc_calendar')
     },
     {
+<<<<<<< HEAD
         path: '/free', //免费和详情
         name: 'free',
         meta: {
@@ -29,6 +35,21 @@ const routes = [
 
         },
         component: () => import('@/views/itemPage/Free')
+=======
+        path: '/teacherList',
+        name: 'teacherList',
+        meta:{
+            title:'名师阵容'
+        },
+        component: () => import('@/views/itemPage/Chc_teacherList')
+    },
+
+    {
+        path:'/free', //免费和详情
+        name:'free',
+        meta:{title:'详情'},
+        component:()=>import('@/views/itemPage/Free')
+>>>>>>> 48607d7d3398f3b5432f3b9da2a592de9871712b
     },
     {
         path: '/search', //搜索

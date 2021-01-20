@@ -1,7 +1,7 @@
 <template>
 <!-- 学习日历页面 -->
   <div id='calendar'>
-      <app-banner :banner="'学习日历'"></app-banner>
+      <app-banner ></app-banner>
       <van-calendar
   title="日历"
   :poppable="false"

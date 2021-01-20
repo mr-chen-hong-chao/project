@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   name: "",
   data() {
@@ -36,8 +37,10 @@ export default {
   computed: {},
   created() {},
   methods: {
+    ...mapMutations(['tabEmailState']),
       hide(){
-          this.$emit('hide')
+      this.tabEmailState()
+          
       }
   },
 };

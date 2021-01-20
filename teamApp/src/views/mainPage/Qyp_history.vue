@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="约课记录" />
+    <app-banner></app-banner>
     <van-tabs v-model="active" @click="cut">
       <van-tab v-for="item in tab" :key="item.type" :title="item.title" :name="item.type">
         <van-empty v-if="list.length == 0" image="./icon/no-message.png" image-size="5rem" :description="alt">
@@ -13,6 +13,7 @@
   </div>
 </template>
 <script>
+import AppBanner from '@/components/Chc_app_banner'
 import {getPublic} from '@/utils/api'
 export default {
   data() {
@@ -29,6 +30,9 @@ export default {
       ],
       alt: '还没有待上课记录哦'
     }
+  },
+  components:{
+    AppBanner
   },
   mounted() {
     // this.$http.record({ limit: this.pagesize, page: this.pagenum, type: this.type }).then(res => {

@@ -1,6 +1,6 @@
 <template>
   <div id="app-banner">
-      <van-nav-bar class="opacity" :title="banner" left-text="返回" left-arrow @click-left='back'>
+      <van-nav-bar class="opacity" :title="$route.meta.title" left-text="" left-arrow @click-left='back'>
         <template #right >
           <van-icon v-show="show" name="search" size="18" />
         </template>
@@ -13,24 +13,31 @@ export default {
   name: "",
   data() {
     return {
-      show:false
+      show:false,
     };
   },
   components: {},
-  props: ["banner"],
+  props: [],
   computed: {},
-  created() {},
+  created() {
+    if(this.$route.path =='/lesson'){
+      this.show = true
+    }else{
+      this.show = false
+    }
+  },
   methods: {
     back(){
       this.$router.back()
     }
   },
-  //监听路由,显示隐藏右侧搜索图标
 };
 </script>
 <style lang='scss' scoped>
 #app-banner{
-  
+  /deep/.van-icon{
+    // color: black;
+  }
     
 }
 </style>
