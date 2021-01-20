@@ -5,13 +5,13 @@
       <div class="Qyp_tab">
         <div class="Qyp_tab_top">
           <div @click="gotoLogin">
-            <span><img src="../../../public/icon/to.jpg" alt="" ></span>
+            <span><img :src="$store.state.user.avatar" alt=""></span>
             <img src="../../../public/icon/皇冠-2 拷贝@2x.ca9087bc.png" class="img" alt="">
           </div>
           <div>
-            <span >15660030263</span>
-            <span >
-              <van-icon name="edit" size="0.5rem" @click="Qyp_msg_edit"/>
+            <span>{{$store.state.user.mobile}}</span>
+            <span>
+              <van-icon name="edit" size="0.5rem" @click="Qyp_msg_edit" />
             </span>
           </div>
         </div>
@@ -33,7 +33,7 @@
           </div>
         </div>
       </div>
-      <div class="Qyp_contten">
+      <div class="Qyp_contten" @click="Qyp_yaoqing">
         <span>
           <van-icon name="gem" color="white" class="left_icon" size="0.5rem" />
         </span>
@@ -85,7 +85,12 @@
 </template>
 
 <script>
-import {getPublic} from '@/utils/api'
+  import {
+    Toast
+  } from 'vant';
+  import {
+    getPublic
+  } from '@/utils/api'
   export default {
     name: '',
     data() {
@@ -97,16 +102,17 @@ import {getPublic} from '@/utils/api'
     components: {
 
     },
+
     props: [],
     computed: {
 
     },
-    created(){
-    //测试接口
-    getPublic().then(res=>{
-      console.log(res)
-    })
-  },
+    created() {
+      //测试接口
+      getPublic().then(res => {
+        console.log(res)
+      })
+    },
     methods: {
       //点击头像登录
       gotoLogin() {
@@ -189,9 +195,14 @@ import {getPublic} from '@/utils/api'
       },
 
       //信息编写
-      Qyp_msg_edit(){
+      Qyp_msg_edit() {
         this.$router.push({
-          path:"/Qyp_msg_edit"
+          path: "/Qyp_msg_edit"
+        })
+      },
+      Qyp_yaoqing() {
+        this.$router.push({
+          path: "/Qyp_yaoqing"
         })
       }
 
@@ -249,7 +260,8 @@ import {getPublic} from '@/utils/api'
               margin: 4vw 4vw 4vw 4vw;
               border-radius: 50rem;
               border: 0.02rem solid rgb(218, 218, 218);
-              img{
+
+              img {
                 border-radius: 5rem;
                 width: 100%;
                 height: 100%;
@@ -290,7 +302,7 @@ import {getPublic} from '@/utils/api'
               margin-top: 0.1rem;
               text-align: center;
               color: salmon;
-              
+
 
             }
 

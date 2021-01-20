@@ -28,7 +28,7 @@ function Guid(g) {
 
     //Guid对象的标记
 
-    this.IsGuid = function () { }
+    this.IsGuid = function () {}
 
     //返回 Guid 类的此实例值的 String 表示形式。
 
@@ -165,4 +165,6 @@ Guid.NewGuid = function () {
     return new Guid(g);
 }
 
-export { Guid };
+export {
+    Guid
+};
