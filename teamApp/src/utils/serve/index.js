@@ -7,9 +7,8 @@ const server = axios.create({
 })
 //请求拦截
 server.interceptors.request.use(config=>{ 
-    localStorage.setItem('token','sdfsef-4564-werf45w-wefwef')
     if(localStorage.getItem('token')){
-        // config.headers.token = localStorage.getItem('token')
+        config.headers.token = localStorage.getItem('token')
     }
     let token = localStorage.getItem('token')
     if(!localStorage.getItem('DeviceID')){

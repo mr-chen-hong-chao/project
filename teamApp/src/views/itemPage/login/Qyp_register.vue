@@ -8,7 +8,8 @@
         <van-field v-model="mobile" type="text" name="用户名" placeholder="请输入手机号"
           :rules="[{ required: true, message: '请填写手机号' }]">
           <template #button>
-            <van-button size="small" type="primary" @click="getcode">获取验证码</van-button>
+            <van-button v-if="getcode" size="small" type="primary" @click="getCode">获取验证码</van-button>
+            <van-button v-else size="small" type="primary" disabled @click="getCode">获取验证码{{ second }}</van-button>
           </template>
         </van-field>
         <van-field v-model="code" type="text" name="验证码" placeholder="请输入短信验证码"
@@ -18,8 +19,8 @@
           <p @click="toLogin">使用密码登录</p>
         </div>
         <div style="margin: 16px">
-          <van-button round block type="info" native-type="submit" color="linear-gradient(to right, #FF944B, #FC5500)">
-            登录</van-button>
+          <van-button round block type="info" native-type="submit" color="linear-gradient(to right, #FF944B, #FC5500)"
+            @click="login">登录</van-button>
         </div>
       </van-form>
     </div>
@@ -28,10 +29,8 @@
   </div>
 </template>
 <script>
+import { mobileLogin } from "@/utils/api"
   import thirds from '@/components/Qyp_login_third party'
-  import {
-    getSmsCode
-  } from '@/utils/api/index.js';
   import {
     Toast
   } from 'vant'
@@ -43,6 +42,8 @@
       return {
         mobile: '',
         code: '',
+        getcode: true,
+        second: ''
       }
     },
     mounted() {},
@@ -50,31 +51,47 @@
       toLogin() {
         this.$router.push('/login')
       },
-      //获取验证码
-
-      getcode() {
-        if (this.mobile != '') {
-          let params = {
-            mobile: this.mobile,
-            sms_type: 'login'
-          }
-
-          getSmsCode(params).then((res) => {
-            console.log(res);
-            if (res.code == 200) {
-              Toast.success(res.msg);
-            } else {
-              Toast.fail(res.msg);
-            }
-          }).catch((err) => {
-            Toast.fail(err.msg);
-          });
-
-        } else {
-          Toast('手机号不能为空');
+      // 获取验证码
+      getCode() {
+        if (this.mobile.trim() == '') {
+          return
         }
+        clearInterval(timer)
+        this.getcode = false
+        this.second = 60
+        let timer = setInterval(() => {
+          if (this.second == 0) {
+            this.getcode = true
+            clearInterval(timer)
+            return
+          } else {
+            this.second--
+          }
+          console.log(this.second)
+        }, 1000)
+        this.$http.securitycode({
+          mobile: this.mobile,
+          sms_type: 'login'
+        }).then(res => {
+          console.log(res)
+        })
+      },
+      // 注册
+      login() {
+        let val ={
+          mobile: this.mobile,
+          sms_code: this.code,
+        }
+        mobileLogin(val).then(res => {
+          console.log(res)
+          if (res.data.code == 200) {
+            localStorage.setItem('token', res.data.data.remember_token)
+            this.$router.push('/my')
+          } else {
+            Toast.fail(res.data.msg)
+          }
+        })
       }
-
     }
   }
 </script>
@@ -125,5 +142,6 @@
     left: 0;
     width: 100%;
     // background-color: #fff;
+
   }
 </style>

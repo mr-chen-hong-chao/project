@@ -58,7 +58,9 @@
           {{ DetailList.teachers_list[0].teacher_name }}
         </p>
       </div>
-      <div class="Zpy_introduce">课程介绍</div>
+      <div class="Zpy_introduce">课程介绍
+        <div v-html="course_details"></div>
+      </div>
       <div class="Zpy-outline">
         <p class="Zpy_big">课程大纲</p>
         <ul>
@@ -78,7 +80,8 @@
 
       <div class="Zpy_comment">
         <p>课程评论</p>
-        <ul>
+        
+        <ul v-if="Zpy_commentList">
           <li v-for="(item, index) in Zpy_commentList" :key="index">
             <img :src="item.img" alt="" />
             <div>
@@ -88,9 +91,10 @@
             </div>
           </li>
         </ul>
+        <van-empty v-else description="暂无评论" />
       </div>
     </div>
-    <div class="Zpy_button" @click="Zpy_study">{{BottomBtn}}</div>
+    <div class="Zpy_button" @click="Zpy_study">立即学习</div>
     <!-- 分享弹框 -->
     <van-share-sheet
       v-model="showShare"
@@ -102,22 +106,23 @@
 <script>
 const coupon = {
   available: 1,
-  condition: "无使用门槛\n最多优惠12元",
-  reason: "",
+  condition: '无使用门槛\n最多优惠12元',
+  reason: '',
   value: 150,
-  name: "优惠券名称",
+  name: '优惠券名称',
   startAt: 1489104000,
   endAt: 1514592000,
-  valueDesc: "1.5",
-  unitDesc: "元",
+  valueDesc: '1.5',
+  unitDesc: '元',
 };
-import { getLesson } from "@/utils/api";
+import { getLesson ,lessonDetail,lessonSay,lessonDaGang,lessonAlt} from "@/utils/api";
 export default {
   data() {
     return {
       Zpy_detailList: [],
       DetailList: [],
       detail: "",
+      course_details:'', //课程介绍
       Zpy_outline: [],
       teacherName: "",
       Zpy_commentList: [], //评论
@@ -139,13 +144,10 @@ export default {
       chosenCoupon: -1,
       coupons: [coupon],
       disabledCoupons: [coupon],
-      showList: false,
-      isBuy:false,
-      BottomBtn:''
-
+      showList:false,
     };
   },
-
+  
   filters: {
     filterTime(val) {
       if (!val) {
@@ -180,16 +182,37 @@ export default {
         }
       })
     })
-  this.isBuy = this.$route.params.buy
-    this.$axios.get("/Zpy_outline.json").then((res) => {
-      // console.log(res);
-      this.Zpy_outline = res.data.data;
+    // this.$axios.get("/Zpy_outline.json").then((res) => {
+    //   // console.log(res);
+    //   this.Zpy_outline = res.data.data;
+    // });
+
+    // this.$axios.get("/Zpy_commentList.json").then((res) => {
+    //   // console.log(res);
+    //   this.Zpy_commentList = res.data.data;
+    // });
+    let val= {
+      id:this.$route.query.id,
+      page:1,
+      limit:10
+    }
+    //请求评论
+    lessonSay(val).then(res=>{
+      console.log(res)
+    })
+    // 请求大纲
+    let id = {id:this.$route.query.id}
+    lessonDaGang(id).then(res=>{
+      this.Zpy_outline = res
+    })
+    //请求课程介绍
+    lessonAlt(this.$route.query.id).then(res=>{
+      
+      this.course_details = res.info.course_details
+  console.log(this.course_details)
     })
 
-    this.$axios.get("/Zpy_commentList.json").then((res) => {
-      // console.log(res);
-      this.Zpy_commentList = res.data.data;
-    });
+
   },
   methods: {
     goUp() {
@@ -198,9 +221,7 @@ export default {
     Zpy_share() {
       this.showShare = true; //点击分享
     },
-    Zpy_study() {
-      
-    },
+    Zpy_study() {},
     onChange(index) {
       this.showList = false;
       this.chosenCoupon = index;
@@ -208,18 +229,8 @@ export default {
     onExchange(code) {
       this.coupons.push(coupon);
     },
+
   },
-  watch:{
-isBuy(){
-       switch(this.isBuy){
-         case 0 : this.BottomBtn ='立即报名'
-         break
-         case 1 : this.BottomBtn ='立即学习'
-         break
-       }
-    
-  }
-  }
 };
 </script>
 <style lang="scss" scoped>

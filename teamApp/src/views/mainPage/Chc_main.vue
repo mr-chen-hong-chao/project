@@ -109,7 +109,6 @@ export default {
       this.swiper = res;
     });
     getHome().then((res) => {
-      // console.log(res)
       this.hot = res.splice(1, 1);
       this.data = res;
     });
