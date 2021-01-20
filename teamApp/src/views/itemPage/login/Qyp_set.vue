@@ -17,6 +17,7 @@
 </template>
 <script>
     import Heads from '../../../components/Qyp_header'
+    import {Toast} from 'vant';
     export default {
         components: {
             Heads
