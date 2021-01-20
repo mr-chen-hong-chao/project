@@ -90,7 +90,7 @@
         </ul>
       </div>
     </div>
-    <div class="Zpy_button" @click="Zpy_study">立即学习</div>
+    <div class="Zpy_button" @click="Zpy_study">{{BottomBtn}}</div>
     <!-- 分享弹框 -->
     <van-share-sheet
       v-model="showShare"
@@ -102,14 +102,14 @@
 <script>
 const coupon = {
   available: 1,
-  condition: '无使用门槛\n最多优惠12元',
-  reason: '',
+  condition: "无使用门槛\n最多优惠12元",
+  reason: "",
   value: 150,
-  name: '优惠券名称',
+  name: "优惠券名称",
   startAt: 1489104000,
   endAt: 1514592000,
-  valueDesc: '1.5',
-  unitDesc: '元',
+  valueDesc: "1.5",
+  unitDesc: "元",
 };
 import { getLesson } from "@/utils/api";
 export default {
@@ -139,10 +139,13 @@ export default {
       chosenCoupon: -1,
       coupons: [coupon],
       disabledCoupons: [coupon],
-      showList:false,
+      showList: false,
+      isBuy:false,
+      BottomBtn:''
+
     };
   },
-  
+
   filters: {
     filterTime(val) {
       if (!val) {
@@ -172,15 +175,16 @@ export default {
   mounted() {
     getLesson().then((res) => {
       this.Zpy_detailList = res.list.forEach((item) => {
-        if (item.id == this.$route.query.id) {
+        if (item.id == this.$route.params.id) {
           this.DetailList = item;
         }
-      });
-    });
+      })
+    })
+  this.isBuy = this.$route.params.buy
     this.$axios.get("/Zpy_outline.json").then((res) => {
       // console.log(res);
       this.Zpy_outline = res.data.data;
-    });
+    })
 
     this.$axios.get("/Zpy_commentList.json").then((res) => {
       // console.log(res);
@@ -194,7 +198,9 @@ export default {
     Zpy_share() {
       this.showShare = true; //点击分享
     },
-    Zpy_study() {},
+    Zpy_study() {
+      
+    },
     onChange(index) {
       this.showList = false;
       this.chosenCoupon = index;
@@ -202,8 +208,18 @@ export default {
     onExchange(code) {
       this.coupons.push(coupon);
     },
-
   },
+  watch:{
+isBuy(){
+       switch(this.isBuy){
+         case 0 : this.BottomBtn ='立即报名'
+         break
+         case 1 : this.BottomBtn ='立即学习'
+         break
+       }
+    
+  }
+  }
 };
 </script>
 <style lang="scss" scoped>

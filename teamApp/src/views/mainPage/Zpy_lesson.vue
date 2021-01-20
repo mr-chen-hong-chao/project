@@ -46,7 +46,7 @@
             <button
               v-for="(item, index) in Zpy_changeList"
               :key="index"
-              @click="Zpy_changeType"
+              @click="Zpy_changeType(index)"
             >
               {{ item.name }}
             </button>
@@ -60,7 +60,7 @@
           <li
             v-for="(item, index) in teacherList"
             :key="index"
-            @click="Zpy_content_detail(item.id)"
+            @click="Zpy_content_detail(item.id,item.has_buy)"
           >
             <p class="Zpy_title">{{ item.title }}</p>
             <p>
@@ -80,6 +80,7 @@
               {{ item.sales_num }}人已报名
               <span class="Zpy_price">价格{{ item.price }}</span>
               <span class="Zpy_free" @click.stop="Zpy_free(item.id)">免费</span>
+              <sign class="sign" v-if="item.has_buy" ></sign>
             </p>
           </li>
         </ul>
@@ -88,7 +89,11 @@
   </div>
 </template>
 <script>
+<<<<<<< HEAD
+import Sign from '@/components/Sign'
+=======
 import AppBanner from '@/components/Chc_app_banner'
+>>>>>>> a67ee1dbee30c991809b37adeaa4203f0270d79c
 import { getPublic, getChange, getLesson } from "@/utils/api";
 export default {
   data() {
@@ -100,10 +105,16 @@ export default {
       isShow: false,
       isShow2: false,
       Zpy_changeList: [], //筛选
+      Zpy_Type:[],//筛选类型
+      list:[],
     };
   },
   components:{
+<<<<<<< HEAD
+    Sign
+=======
     AppBanner,
+>>>>>>> a67ee1dbee30c991809b37adeaa4203f0270d79c
   },
   filters: {
     filterTime(val) {
@@ -142,8 +153,8 @@ export default {
       // console.log(id);
       this.$router.push({ path: "/free", query: { id: id } });
     },
-    Zpy_content_detail(id) {
-      this.$router.push({ path: "/free", query: { id: id } });
+    Zpy_content_detail(id,buy) {
+      this.$router.push({ name: "free", params: { id: id ,buy:buy} });
     },
     //分类弹框
     Zpy_type() {
@@ -193,18 +204,34 @@ export default {
     Zpy_change() {
       this.isShow2 = true;
     },
-    Zpy_changeType(){
-
+    //筛选类型
+    Zpy_changeType(index){
+      if(!index){
+        this.teacherList=this.teacherListAll
+      }else{
+        this.teacherList=[]
+      this.teacherListAll.forEach(item=>{
+        
+        if(item.course_type==index){
+          // console.log(index);
+          this.teacherList.push(item)
+        }
+      })
+      }
+      
+      console.log(this.teacherList)
     }
   },
   mounted() {
     //筛选
     getChange().then((res) => {
-      console.log(res.appCourseType);
+      // console.log(res.appCourseType);
       this.Zpy_changeList = res.appCourseType;
+      this.Zpy_Type=res.courseTypes
+      // console.log(res.courseTypes);
     });
     getLesson().then((res) => {
-      console.log(res.list);
+      // console.log(res.list);
       this.teacherList = res.list;
       this.teacherListAll = res.list;
     });
@@ -343,6 +370,10 @@ export default {
               color: #44a426;
               font-size: 0.33rem;
               margin-left: 1.5rem;
+            }
+            .sign{
+              float: right;
+              margin-right: 0.5rem;
             }
           }
         }
