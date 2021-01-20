@@ -1,7 +1,9 @@
 <template>
   <div id='Qyp_my'>
     <div class="Qyp_top-box">
+      <!-- 头部背景图片 -->
       <img src="/icon/user_bg.ab306a5c.png" alt="">
+      <!-- 头部卡片 -->
       <div class="Qyp_tab">
         <div class="Qyp_tab_top">
           <div @click="gotoLogin">
@@ -33,18 +35,26 @@
           </div>
         </div>
       </div>
-      <div class="Qyp_contten" @click="Qyp_yaoqing">
-        <span>
-          <van-icon name="gem" color="white" class="left_icon" size="0.5rem" />
-        </span>
-        <p>
-          <span>邀请好友注册App,享多重好礼</span>
-          <span>限时特惠，多要多得</span>
-        </p>
-        <span>
-          <van-icon name="arrow" size="0.5rem" color="white" class="right_icon" />
-        </span>
-      </div>
+
+
+      <!-- 邀请 -->
+        <div class="Qyp_contten" @click="showPopup">
+          <span>
+            <van-icon name="gem" color="white" class="left_icon" size="0.5rem" />
+          </span>
+          <p>
+            <span>邀请好友注册App,享多重好礼</span>
+            <span>限时特惠，多要多得</span>
+          </p>
+          <span>
+            <van-icon name="arrow" size="0.5rem" color="white" class="right_icon" />
+          </span>
+        </div>
+        <!-- 邀请弹出 -->
+      <van-popup v-model="show">
+        <img src="../../../public/icon/yq.png" alt="" class="img_yaoqing">
+      </van-popup>
+
 
       <div class="Qyp_footer">
         <div class="lesson">
@@ -95,6 +105,7 @@
     name: '',
     data() {
       return {
+        show: false
 
 
       }
@@ -110,10 +121,16 @@
     created() {
       //测试接口
       getPublic().then(res => {
-        console.log(res)
+        // console.log(res)
       })
     },
     methods: {
+      //邀请点击的时候 弹出
+      showPopup() {
+        this.show = true;
+      },
+
+
       //点击头像登录
       gotoLogin() {
         this.$router.push({
@@ -200,11 +217,11 @@
           path: "/Qyp_msg_edit"
         })
       },
-      Qyp_yaoqing() {
-        this.$router.push({
-          path: "/Qyp_yaoqing"
-        })
-      }
+      // Qyp_yaoqing() {
+      //   this.$router.push({
+      //     path: "/Qyp_yaoqing"
+      //   })
+      // }
 
 
 
@@ -471,5 +488,14 @@
         }
       }
     }
+  }
+  /deep/.img_yaoqing{
+    width: 100%;
+    height: 100%;
+    // margin: 0 5%;
+
+  }
+  .van-popup{
+    width: 85%;
   }
 </style>

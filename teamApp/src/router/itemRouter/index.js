@@ -5,6 +5,7 @@ const routes = [
         path: '/teacher-detail',
         name: 'teacher-detail',
         meta: {
+            title:'老师详情',
             isRequireLogin: true
         },
         component: () => import('@/views/itemPage/Chc_teacher-detail')
@@ -81,12 +82,18 @@ const routes = [
     {
         path: '/login',
         name: 'login',
+        meta:{
+            title:"登录"
+        },
         component: () => import('@/views/itemPage/login/Qyp_login.vue')
     },
     //qyp注册
     {
         path: '/Qyp_register',
         name: 'Qyp_register',
+        meta:{
+            title:"注册"
+        },
         component: () => import('@/views/itemPage/login/Qyp_register.vue')
 
     },
@@ -219,5 +226,3 @@ const routes = [
 ]
 
 export default routes
-
-// 你改了啥？

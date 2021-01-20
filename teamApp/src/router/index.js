@@ -42,7 +42,7 @@ VueRouter.prototype.push = function push(location) {
 router.beforeEach((to, from, next) => {
   console.log(to);
   if (to.matched.some(route => route.meta.isRequireLogin)) {
-    
+
     if (store.state.token) {
       next()
     } else {
@@ -52,6 +52,12 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+
+  //导航头部的文字显示
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+
 })
 
 

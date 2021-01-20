@@ -54,7 +54,7 @@ export default {
   created(){
     //测试接口
     getPublic().then(res=>{
-      console.log(res)
+      // console.log(res)
     })
   },
   components:{

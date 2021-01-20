@@ -18,10 +18,11 @@ export default {
     //改变底部导航下标
     tabBottomNav(state, val) {
         state.bottomNavIndex = val
+        
     },
     //切换loading状态
     tabLoadingShow(state, val) {
-        console.log(val)
+        // console.log(val)
         state.loadingShow = val
     },
     tabEmailState(state, val) {

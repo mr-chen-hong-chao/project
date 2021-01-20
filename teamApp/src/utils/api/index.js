@@ -114,25 +114,10 @@ export {
     getTeacherInfo,
     getTeacherDetail,
     getFocus,
-<<<<<<< HEAD
     getChange, //筛选
     getLesson, //课程
-=======
-    getChange,//筛选
-    getLesson,//课程
-<<<<<<< HEAD
-    getClassify,//练习
-    getList,//练习 考点专练内容
-=======
-<<<<<<< HEAD
->>>>>>> 8a6c78f28770b6297666d5a619684463c246e69b
     getLogin, //登录
     getSmsCode, //验证码登录
     password, //设置密码
     getSay,
-<<<<<<< HEAD
-=======
->>>>>>> 48607d7d3398f3b5432f3b9da2a592de9871712b
->>>>>>> a67ee1dbee30c991809b37adeaa4203f0270d79c
->>>>>>> 8a6c78f28770b6297666d5a619684463c246e69b
 }

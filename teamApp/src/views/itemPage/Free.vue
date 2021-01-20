@@ -174,8 +174,8 @@ export default {
   },
   mounted() {
     getLesson().then((res) => {
-      this.Zpy_detailList = res.list.forEach((item) => {
-        if (item.id == this.$route.params.id) {
+      this.Zpy_detailList = res.forEach((item) => {
+        if (item.id == this.$route.query.id) {
           this.DetailList = item;
         }
       })

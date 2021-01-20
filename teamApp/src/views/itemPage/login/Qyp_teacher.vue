@@ -13,7 +13,6 @@
         components: {
             Heads
         }
-
     }
 </script>
 <style lang="scss" scoped>

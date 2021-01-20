@@ -89,11 +89,8 @@
   </div>
 </template>
 <script>
-<<<<<<< HEAD
 import Sign from '@/components/Sign'
-=======
 import AppBanner from '@/components/Chc_app_banner'
->>>>>>> a67ee1dbee30c991809b37adeaa4203f0270d79c
 import { getPublic, getChange, getLesson } from "@/utils/api";
 export default {
   data() {
@@ -110,11 +107,8 @@ export default {
     };
   },
   components:{
-<<<<<<< HEAD
-    Sign
-=======
+    Sign,
     AppBanner,
->>>>>>> a67ee1dbee30c991809b37adeaa4203f0270d79c
   },
   filters: {
     filterTime(val) {
@@ -232,8 +226,8 @@ export default {
     });
     getLesson().then((res) => {
       // console.log(res.list);
-      this.teacherList = res.list;
-      this.teacherListAll = res.list;
+      this.teacherList = res;
+      this.teacherListAll = res;
     });
   },
 };
