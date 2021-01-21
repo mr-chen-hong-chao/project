@@ -46,7 +46,7 @@
             <button
               v-for="(item, index) in Zpy_changeList"
               :key="index"
-              @click="Zpy_changeType(index)"
+              @click="Zpy_changeType"
             >
               {{ item.name }}
             </button>
@@ -56,6 +56,7 @@
     </div>
     <div class="Zpy_body">
       <div class="Zpy_teacher_content">
+<<<<<<< HEAD
         <van-list
           v-model="loading"
           :finished="finished"
@@ -94,13 +95,46 @@
             </li>
           </ul>
         </van-list>
+=======
+        <ul>
+          <li
+            v-for="(item, index) in teacherList"
+            :key="index"
+            @click="Zpy_content_detail(item.id)"
+          >
+            <p class="Zpy_title">{{ item.title }}</p>
+            <p>
+              {{ item.start_play_date | filterTime }}&emsp;{{
+                item.end_play_date | filterTime
+              }}
+            </p>
+            <p>共{{ item.total_periods }}课时</p>
+            <div class="Zpy_img">
+              <img :src="item.cover_img" alt="" class="Zpy_teacherImg" />
+              &emsp;&emsp;
+              <span class="Zpy_name">{{
+                item.teachers_list[0].teacher_name
+              }}</span>
+            </div>
+            <p class="Zpy_num">
+              {{ item.sales_num }}人已报名
+              <span class="Zpy_price">价格{{ item.price }}</span>
+              <span class="Zpy_free" @click.stop="Zpy_free(item.id)">免费</span>
+            </p>
+          </li>
+        </ul>
+>>>>>>> d03aa5043faa8a8ad32cd4ae0da910c14a2ae753
       </div>
     </div>
   </div>
 </template>
 <script>
+<<<<<<< HEAD
 import Sign from "@/components/Sign";
 import AppBanner from "@/components/Chc_app_banner";
+=======
+import AppBanner from '@/components/Chc_app_banner'
+>>>>>>> d03aa5043faa8a8ad32cd4ae0da910c14a2ae753
 import { getPublic, getChange, getLesson } from "@/utils/api";
 export default {
   data() {
@@ -112,6 +146,7 @@ export default {
       isShow: false,
       isShow2: false,
       Zpy_changeList: [], //筛选
+<<<<<<< HEAD
       Zpy_Type: [], //筛选类型
       loading: false,
       finished: false,
@@ -121,6 +156,11 @@ export default {
   },
   components: {
     Sign,
+=======
+    };
+  },
+  components:{
+>>>>>>> d03aa5043faa8a8ad32cd4ae0da910c14a2ae753
     AppBanner,
   },
   filters: {
@@ -175,8 +215,13 @@ export default {
       console.log(id);
       this.$router.push({ path: "/free", query: { id: id } });
     },
+<<<<<<< HEAD
     Zpy_content_detail(id, buy) {
       this.$router.push({ name: "free", query: { id: id, buy: buy } });
+=======
+    Zpy_content_detail(id) {
+      this.$router.push({ path: "/free", query: { id: id } });
+>>>>>>> d03aa5043faa8a8ad32cd4ae0da910c14a2ae753
     },
     //分类弹框
     Zpy_type() {
@@ -226,6 +271,7 @@ export default {
     Zpy_change() {
       this.isShow2 = true;
     },
+<<<<<<< HEAD
     //筛选类型
     Zpy_changeType(index) {
       if (!index) {
@@ -242,10 +288,16 @@ export default {
 
       console.log(this.teacherList);
     },
+=======
+    Zpy_changeType(){
+
+    }
+>>>>>>> d03aa5043faa8a8ad32cd4ae0da910c14a2ae753
   },
   mounted() {
     //筛选
     getChange().then((res) => {
+<<<<<<< HEAD
       // console.log(res);
       this.Zpy_changeList = res.appCourseType;
       this.Zpy_Type = res.courseTypes;
@@ -255,6 +307,15 @@ export default {
       console.log(res);
       this.teacherList = res;
       this.teacherListAll = res;
+=======
+      console.log(res.appCourseType);
+      this.Zpy_changeList = res.appCourseType;
+    });
+    getLesson().then((res) => {
+      console.log(res.list);
+      this.teacherList = res
+      this.teacherListAll = res
+>>>>>>> d03aa5043faa8a8ad32cd4ae0da910c14a2ae753
     });
   },
 };
@@ -392,10 +453,13 @@ export default {
               font-size: 0.33rem;
               margin-left: 1.5rem;
             }
+<<<<<<< HEAD
             .sign {
               float: right;
               margin-right: 0.5rem;
             }
+=======
+>>>>>>> d03aa5043faa8a8ad32cd4ae0da910c14a2ae753
           }
         }
       }

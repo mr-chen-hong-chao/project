@@ -15,8 +15,8 @@
         <!-- 信息介绍 -->
         <div class="teacher-module">
           <h3>{{ teacher.real_name }}老师</h3>
-          <p>
-            {{teacher.introduction}}
+          <p class="text-overflow-ell">
+            {{ teacher.introduction }}
             <!-- <span>{{ teacher.sex }}</span>
             <span>{{ teacher.age }}岁</span>
             <span>{{ teacher.teachingTime }}年教龄</span>
@@ -25,13 +25,17 @@
         </div>
         <!-- 右侧关注 -->
         <!-- 动态判断是否已关注 改变关注样式与文字 -->
-        <div class="add-focus" 
-        :class="isFocus == 1?'yesFocus':'noFocus'"
-        @click="clickFocu(teacher.id)">
+        <div
+          class="add-focus"
+          :class="focusState == 1 ? 'yesStyle' : 'noStyle'"
+          @click="clickFocus"
+        >
           <span class="focus-icon">
             <img src="/icon/focus.png" alt="" />
           </span>
-          <span class="focus-title">{{isFocus == true?'已关注':'关注'}}</span>
+          <span class="focus-title">{{
+            focusState == true ? "已关注" : "关注"
+          }}</span>
         </div>
       </div>
       <!-- 标签 -->
@@ -63,36 +67,59 @@
           </div>
         </van-tab>
         <van-tab title="学员评价">
-          <div class="say border-fine" v-for="(item,i) in say" :key="i">
+          <div class="say border-fine" v-for="(item, i) in say" :key="i">
             <!-- 头像 -->
             <div class="say-img">
-              <img :src="item.sayImg" alt="">
+              <img :src="item.sayImg" alt="" />
             </div>
             <!-- 评价信息 -->
             <div class="say-info">
-              <h3>{{item.sayName}}</h3>
-              <p><van-icon v-for="(item,i) in item.sayNum" :key="i" color="#FED201" name="star" /></p>
-              <p><span class="say-tag" v-for="(item,i) in item.sayTag" :key="i">{{item}}</span></p>
-              <p>{{item.sayAlt}}</p>
-              <p>{{item.sayTime}}</p>
+              <h3>{{ item.sayName }}</h3>
+              <p>
+                <van-icon
+                  v-for="(item, i) in item.sayNum"
+                  :key="i"
+                  color="#FED201"
+                  name="star"
+                />
+              </p>
+              <p>
+                <span
+                  class="say-tag"
+                  v-for="(item, i) in item.sayTag"
+                  :key="i"
+                  >{{ item }}</span
+                >
+              </p>
+              <p>{{ item.sayAlt }}</p>
+              <p>{{ item.sayTime }}</p>
             </div>
           </div>
         </van-tab>
         <van-tab title="主讲课程">
-          <div class="lesson border-fine" v-for="(item,i) in lesson" :key="i">
+          <div
+            class="lesson border-fine"
+            v-for="(item, i) in lesson"
+            :key="i"
+            @click="getLessonDetail(item.id)"
+          >
             <div class="lesson-img">
-              <img :src="item.cover_img" alt="">
+              <img :src="item.cover_img" alt="" />
             </div>
             <div class="lesson-info">
-              <h2>{{item.title}}</h2>
-              <p>讲师：{{teacher.real_name }}</p>
+              <h2>{{ item.title }}</h2>
+              <p>讲师：{{ teacher.real_name }}</p>
               <p>
                 <!-- 价格字体样式通过判断教程是否免费来选择样色 -->
-                <span class="price" :style="item.total_periods >1?'color:green':'color:red'">{{item.total_periods>1?'免费':'￥'+item.id}}</span>
+                <span
+                  class="price"
+                  :style="item.total_periods > 1 ? 'color:green' : 'color:red'"
+                  >{{ item.total_periods > 1 ? "免费" : "￥" + item.id }}</span
+                >
                 <span class="num">
                   <van-icon name="shopping-cart-o" />
-                  {{item.brows_num}}
-                  </span>
+                  {{ item.brows_num }}
+                </span>
               </p>
             </div>
           </div>
@@ -100,15 +127,26 @@
       </van-tabs>
     </div>
     <footer>
-      <van-button color="#FB5500" size="large">立即报名</van-button>
+      <div :class="signState == true ? 'yesStyle' : 'noStyle'">
+        <van-button class="focus-icon"   size="large" @click="toSign">
+        {{ signState == true ? "取消约课" : "立即约课" }}
+      </van-button>
+      </div>
+      
     </footer>
   </div>
 </template>
 <script>
-import { Toast } from 'vant'
+import { Toast } from "vant";
 import BackButton from "@/components/Chc_back_button";
-import {mapState,mapMutations} from 'vuex'
-import {getTeacherInfo,getTeacherDetail,getLesson,getFocus,getSay} from '@/utils/api'
+import { mapState, mapMutations } from "vuex";
+import {
+  getTeacherInfo,
+  getTeacherDetail,
+  getLesson,
+  tabFocus,
+  getSay,
+} from "@/utils/api";
 export default {
   name: "",
   data() {
@@ -166,40 +204,38 @@ export default {
         },
       ],
       //评论信息
-      say:[
+      say: [
         {
-          sayImg:'./img/小新.jpg',
-          sayName:'辅助',
-          sayNum:5,
-          sayTag:['创造力丰富','为人和善','讲课方式新颖'],
-          sayAlt:'很棒的课程',
-          sayTime:'2020-10-10 18:00'
+          sayImg: "./img/小新.jpg",
+          sayName: "辅助",
+          sayNum: 5,
+          sayTag: ["创造力丰富", "为人和善", "讲课方式新颖"],
+          sayAlt: "很棒的课程",
+          sayTime: "2020-10-10 18:00",
         },
         {
-          sayImg:'./img/小新.jpg',
-          sayName:'辅助',
-          sayNum:5,
-          sayTag:['创造力丰富','为人和善','讲课方式新颖'],
-          sayAlt:'很棒的课程',
-          sayTime:'2020-10-10 18:00'
+          sayImg: "./img/小新.jpg",
+          sayName: "辅助",
+          sayNum: 5,
+          sayTag: ["创造力丰富", "为人和善", "讲课方式新颖"],
+          sayAlt: "很棒的课程",
+          sayTime: "2020-10-10 18:00",
         },
         {
-          sayImg:'./img/小新.jpg',
-          sayName:'辅助',
-          sayNum:5,
-          sayTag:['创造力丰富','为人和善','讲课方式新颖'],
-          sayAlt:'很棒的课程',
-          sayTime:'2020-10-10 18:00'
+          sayImg: "./img/小新.jpg",
+          sayName: "辅助",
+          sayNum: 5,
+          sayTag: ["创造力丰富", "为人和善", "讲课方式新颖"],
+          sayAlt: "很棒的课程",
+          sayTime: "2020-10-10 18:00",
         },
       ],
       // 课程
-      lesson:[
-        
-      ],
-      isFocus:null,
-      yesFocus:'yesFocus',  //已关注样式
-      noFocus:'noFocus',  //未关注样式
-      
+      lesson: [],
+      focusState: null, //关注状态
+      yesStyle: "yesStyle", //已关注样式
+      noStyle: "noStyle", //未关注样式
+      signState: false, //报名状态
     };
   },
   components: {
@@ -208,91 +244,120 @@ export default {
   props: [],
   computed: {
     //关注状态
-    // ...mapState(['isFocus'])
+    // ...mapState(['focusState'])
   },
   created() {},
-  mounted(){
-    this.active = 0 //挂载时切换下标为0
+  mounted() {
+    this.active = 0; //挂载时切换下标为0
     //发送老师详情请求
-    getTeacherDetail(this.$route.query.id).then(res=>{
-      this.teacher =res
-      this.teacher.teacherTag= [
-          "创造力丰富",
-          "为人和善",
-          "讲课方式新颖",
-          "创造力丰富",
-          "讲课方式新颖",
-        ]
-    })
-    //获取老师关注状态
-    getFocus(this.$route.query.id).then(res=>{
-      this.isFocus = res.flag
-    })
+    getTeacherDetail(this.$route.query.id).then((res) => {
+      console.log(res);
+      this.isFocus(res.flag);
+      this.teacher = res.teacher;
+      this.teacher.teacherTag = [
+        "创造力丰富",
+        "为人和善",
+        "讲课方式新颖",
+        "创造力丰富",
+        "讲课方式新颖",
+      ];
+    });
   },
   methods: {
-    ...mapMutations(['changeFocus']),//在vuex操作关注老师id，已废弃
-    clickFocu(id){
-      // this.changeFocus(id) //废弃
-      this.isFocus = !this.isFocus
-      if(this.isFocus){
-        Toast({
-          message: '关注成功',
-          icon: 'like',
-          duration:600
-        })
-
-      }else{
-        Toast({
-          message: '取消关注',
-          icon: 'like-o',
-          duration:600
-        })
+    ...mapMutations(["changeFocus"]), //在vuex操作关注老师id，已废弃
+    //判断是否关注
+    isFocus(res) {
+      if (res === 1) {
+        this.focusState = false;
+      } else {
+        this.focusState = true;
       }
     },
-    tab(i){
-      this.active = i
-    }
+    // 点击关注，切换状态
+    clickFocus() {
+      if(!localStorage.getItem('token')){
+        this.$router.push('/login')
+        Toast({
+          message: "还未登录",
+          icon: "fail",
+          duration: 600,
+        })
+      }else{
+        tabFocus(this.$route.query.id).then((res) => {
+        this.isFocus(res);
+      });
+      // this.focusState = !this.focusState
+      if (this.focusState) {
+        Toast({
+          message: "关注成功",
+          icon: "like",
+          duration: 600,
+        });
+      } else {
+        Toast({
+          message: "取消关注",
+          icon: "like-o",
+          duration: 600,
+        });
+      }
+      }
+      
+    },
+    //信息切换
+    tab(i) {
+      this.active = i;
+    },
+    //跳到课程详情
+    getLessonDetail(id) {
+      console.log(id)
+      this.$router.push({
+        path: "/free",
+        query:{
+          id:id
+        }
+      });
+    },
+    //报名
+    toSign() {
+      this.signState = !this.signState;
+    },
   },
-  watch:{
-    active(i){
-      if(i ===0){
-        getTeacherInfo(this.$route.query.id).then(res=>{
-        })
-      }else if(i ===1){
+  watch: {
+    active(i) {
+      if (i === 0) {
+        getTeacherInfo(this.$route.query.id).then((res) => {});
+      } else if (i === 1) {
         let val = {
-          limit:'',
-          page:'',
-          teacher_id:this.$route.query.id
-        }
-        getSay(val).then(res=>{
-        })
-      }else if(i ===2){
+          limit: "",
+          page: "",
+          id: this.$route.query.id,
+        };
+        getSay(val).then((res) => {});
+      } else if (i === 2) {
         let val = {
-          limit:'',
-          page:'',
-          id:this.$route.query.id
-        }
-        getLesson(val).then(res=>{
+          limit: "",
+          page: "",
+          id: this.$route.query.id,
+        };
+        getLesson(val).then((res) => {
           // 循环所有课程，寻找包含教师id的课程
           //如果有能找到就添加，找不到就随机添加
-          res.forEach((item,index,array)=>{
-            if(item.teachers_list[0].id ==this.$route.query.id){
-              this.lesson.push(item)
+          res.forEach((item, index, array) => {
+            if (item.teachers_list[0].id == this.$route.query.id) {
+              this.lesson.push(item);
             }
-          })
-          var length = parseInt(Math.random())
-          if(this.lesson.length ===0){
-            for(var i=0;i<=2;i++){
-              let n = parseInt(Math.random()*res.length)
-              this.lesson.push(res[n])
+          });
+          var length = parseInt(Math.random());
+          if (this.lesson.length === 0) {
+            for (var i = 0; i <= 2; i++) {
+              let n = parseInt(Math.random() * res.length);
+              this.lesson.push(res[n]);
             }
-
           }
-          
-        })
+        });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -378,20 +443,7 @@ export default {
           }
         }
       }
-      //已关注样式
-      .yesFocus{
-        color: rgb(126, 126, 126);
-        .focus-icon{
-          background: linear-gradient(190deg, #b1b1b1, #000000);
-        }
-      }
-      // 没关注样式
-      .noFocus{
-        color: #ff8518;
-        .focus-icon{
-          background: linear-gradient(190deg, #fff6ef, #ff6600);
-        }
-      }
+      
     }
     // 老师标签
     .tag {
@@ -457,24 +509,24 @@ export default {
         @include between;
         align-items: start;
         // 评价头像
-        .say-img{
+        .say-img {
           width: 0.6rem;
           height: 0.6rem;
           border-radius: 50%;
           overflow: hidden;
         }
         // 评价信息
-        .say-info{
+        .say-info {
           width: 88%;
           height: 100%;
           color: rgb(146, 146, 146);
-          h3{
+          h3 {
             color: black;
             font-size: 0.27rem;
           }
-          p{
+          p {
             margin: 0.1rem 0rem;
-            .say-tag{
+            .say-tag {
               padding: 0.1rem;
               margin-right: 0.1rem;
               border-radius: 0.05rem;
@@ -487,41 +539,60 @@ export default {
         }
       }
       //课程
-      .lesson{
+      .lesson {
         width: 100%;
         height: 1.7rem;
         padding: 0.2rem 0rem;
         @include between;
         align-items: start;
-        .lesson-img{
+        .lesson-img {
           width: 35%;
           height: 100%;
         }
-        .lesson-info{
+        .lesson-info {
           width: 60%;
           height: 100%;
           position: relative;
-          h2{
+          h2 {
             font-size: 0.3rem;
             font-weight: bold;
           }
-          p{
+          p {
             margin-top: 0.15rem;
             font-size: 0.2rem;
             color: silver;
           }
-          p:last-child{
+          p:last-child {
             width: 100%;
             position: absolute;
             bottom: 0rem;
             @include between;
-            .price{
+            .price {
               font-size: 0.3rem;
               font-weight: bold;
             }
           }
         }
       }
+    }
+  }
+  //已关注样式
+      /deep/.yesStyle {
+        color: rgb(126, 126, 126);
+        .focus-icon {
+          background: linear-gradient(190deg, #b1b1b1, #000000);
+        }
+      }
+      // 没关注样式
+      /deep/.noStyle {
+        color: #ff8518;
+        .focus-icon {
+          background: linear-gradient(190deg, #fff6ef, #ff6600);
+        }
+      }
+  footer{
+    button{
+      color: white !important;
     }
   }
 }

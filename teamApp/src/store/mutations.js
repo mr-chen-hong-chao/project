@@ -18,26 +18,30 @@ export default {
     //改变底部导航下标
     tabBottomNav(state, val) {
         state.bottomNavIndex = val
+        
     },
     //切换loading状态
     tabLoadingShow(state, val) {
         // console.log(val)
         state.loadingShow = val
     },
+    tabEmailState(state, val) {
+        state.emailState = !state.emailState
+    },
     //获取用户信息
-    add_user(state,data){
+    add_user(state, data) {
         state.user = data
     },
     //添加token
-    add_token(state,token){
+    add_token(state, token) {
         state.token = token
     },
     //删除token
-    del_token(state){
+    del_token(state) {
         state.token = ''
     },
     //删除用户信息
-    del_user(state){
+    del_user(state) {
         state.user = ''
     }
 

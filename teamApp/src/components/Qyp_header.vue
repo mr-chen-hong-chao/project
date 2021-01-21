@@ -29,7 +29,7 @@
         height: 8vh;
         text-align: center;
         line-height: 8vh;
-        font-size: 0.3rem;
+        font-size: 20px;
         box-shadow: 0px 0px 2px #c8c8c8;
         position: relative;
 

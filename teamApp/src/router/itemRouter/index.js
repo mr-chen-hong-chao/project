@@ -5,7 +5,7 @@ const routes = [
         path: '/teacher-detail',
         name: 'teacher-detail',
         meta:{
-            isRequireLogin:true
+            title:'老师详情'
         },
         component: () => import('@/views/itemPage/Chc_teacher-detail')
     },
@@ -27,6 +27,7 @@ const routes = [
         component: () => import('@/views/itemPage/Chc_calendar')
     },
     {
+<<<<<<< HEAD
         path: '/free', //免费和详情
         name: 'free',
         meta: {
@@ -34,30 +35,39 @@ const routes = [
 
         },
         component: () => import('@/views/itemPage/Free')
+=======
+        path: '/teacherList',
+        name: 'teacherList',
+        meta:{
+            title:'名师阵容'
+        },
+        component: () => import('@/views/itemPage/Chc_teacherList')
+    },
+
+    {
+        path:'/free', //免费和详情
+        name:'free',
+        meta:{title:'详情'},
+        component:()=>import('@/views/itemPage/Free')
+>>>>>>> d03aa5043faa8a8ad32cd4ae0da910c14a2ae753
     },
     {
-        path: '/search', //搜索
-        name: 'search',
-        meta: {
-            title: '搜索'
-        },
-        component: () => import('@/views/itemPage/Search')
+        path:'/search', //搜索
+        name:'search',
+        meta:{title:'搜索'},
+        component:()=>import('@/views/itemPage/Search')
     },
     {
-        path: '/searchList', //搜索结果列表
-        name: 'searchList',
-        meta: {
-            title: '搜索结果列表'
-        },
-        component: () => import('@/views/itemPage/Zpy_searchList')
+        path:'/searchList', //搜索结果列表
+        name:'searchList',
+        meta:{title:'搜索结果列表'},
+        component:()=>import('@/views/itemPage/Zpy_searchList')
     },
     {
-        path: '/testContent', //题库选择
-        name: 'testContent',
-        meta: {
-            title: '题库选择'
-        },
-        component: () => import('@/views/itemPage/Zpy_testContent')
+        path:'/testContent', //题库选择
+        name:'testContent',
+        meta:{title:'题库选择'},
+        component:()=>import('@/views/itemPage/Zpy_testContent')
     },
     {
         path: '/book', //题库选择图书跳详情
@@ -65,7 +75,7 @@ const routes = [
         component: () => import('@/views/itemPage/Zpy_book')
     },
 
-
+    
 
     //qyp登录
     {
@@ -78,24 +88,26 @@ const routes = [
         path: '/Qyp_register',
         name: 'Qyp_register',
         component: () => import('@/views/itemPage/login/Qyp_register.vue')
-
+    
     },
     //qyp关注的老师
     {
         path: '/Qyp_teacher',
         name: 'Qyp_teacher',
-        meta: {
-            title: '我的关注'
+        meta:{
+            title:'我的关注',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_teacher.vue')
-
+    
     },
     //qyp我的收藏
     {
         path: '/Qyp_collect',
         name: 'Qyp_collect',
-        meta: {
-            title: '我的收藏'
+        meta:{
+            title:'我的收藏',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_collect.vue')
     },
@@ -103,8 +115,9 @@ const routes = [
     {
         path: '/Qyp_order_lesson',
         name: 'Qyp_order_lesson',
-        meta: {
-            title: '课程订单'
+        meta:{
+            title:'课程订单',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_order_lesson.vue')
     },
@@ -112,8 +125,9 @@ const routes = [
     {
         path: '/Qyp_order_vip',
         name: 'Qyp_order_vip',
-        meta: {
-            title: '会员订单'
+        meta:{
+            title:'会员订单',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_order_vip.vue')
     },
@@ -121,8 +135,9 @@ const routes = [
     {
         path: '/Qyp_order_Appointment',
         name: 'Qyp_order_Appointment',
-        meta: {
-            title: '约课订单'
+        meta:{
+            title:'约课订单',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_order_Appointment.vue')
     },
@@ -130,8 +145,9 @@ const routes = [
     {
         path: '/Qyp_youhui',
         name: 'Qyp_youhui',
-        meta: {
-            title: '优惠卷'
+        meta:{
+            title:'优惠卷',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_youhui.vue')
     },
@@ -139,8 +155,9 @@ const routes = [
     {
         path: '/Qyp_style',
         name: 'Qyp_style',
-        meta: {
-            title: '学习卡'
+        meta:{
+            title:'学习卡',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_style.vue')
     },
@@ -148,8 +165,9 @@ const routes = [
     {
         path: '/Qyp_vip',
         name: 'Qyp_vip',
-        meta: {
-            title: '会员'
+        meta:{
+            title:'会员',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_vip.vue')
     },
@@ -157,8 +175,9 @@ const routes = [
     {
         path: '/Qyp_msg',
         name: 'Qyp_msg',
-        meta: {
-            title: '我的消息'
+        meta:{
+            title:'我的消息',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_msg.vue')
     },
@@ -166,45 +185,32 @@ const routes = [
     {
         path: '/Qyp_opinion',
         name: 'Qyp_opinion',
-        meta: {
-            title: '意见反馈'
-        },
+        meta:{title:'意见反馈'},
         component: () => import('@/views/itemPage/login/Qyp_opinion.vue')
     },
     //qyp在线客服
     {
         path: '/Qyp_server',
         name: 'Qyp_server',
-        meta: {
-            title: '在线客服'
-        },
+        meta:{title:'在线客服'},
         component: () => import('@/views/itemPage/login/Qyp_server.vue')
     },
     //qyp设置
     {
         path: '/Qyp_set',
         name: 'Qyp_set',
-        meta: {
-            title: '设置'
-        },
+        meta:{title:'设置'},
         component: () => import('@/views/itemPage/login/Qyp_set.vue')
     },
     //qyp信息编写
     {
         path: '/Qyp_msg_edit',
         name: 'Qyp_msg_edit',
-        meta: {
-            title: '信息编写'
+        meta:{
+            title:'信息编写',
+            isRequireLogin:true
         },
         component: () => import('@/views/itemPage/login/Qyp_msg_edit.vue')
-    },
-    {
-        path: '/Qyp_yaoqing',
-        name: 'Qyp_yaoqing',
-        meta: {
-            title: '好友邀请'
-        },
-        component: () => import('@/views/itemPage/login/Qyp_yaoqing.vue')
     }
 ]
 
