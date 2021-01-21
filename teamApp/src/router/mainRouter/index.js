@@ -3,6 +3,9 @@ const routes =[
     {
         path:'/main',
         name:'main',
+        meta:{
+            title:'首页'
+        },
         component:()=>import('@/views/mainPage/Chc_main')
     },
     {
@@ -32,6 +35,9 @@ const routes =[
     {
         path:'/user',
         name:'user',
+        meta:{
+            title:'个人中心'
+        },
         component:()=>import('@/views/mainPage/Qyp_User')
     },
 

@@ -4,6 +4,9 @@ const routes = [
     {
         path: '/teacher-detail',
         name: 'teacher-detail',
+        meta:{
+            title:'老师详情'
+        },
         component: () => import('@/views/itemPage/Chc_teacher-detail')
     },
     {
@@ -76,7 +79,10 @@ const routes = [
     {
         path: '/Qyp_teacher',
         name: 'Qyp_teacher',
-        meta:{title:'我的关注'},
+        meta:{
+            title:'我的关注',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_teacher.vue')
     
     },
@@ -84,56 +90,80 @@ const routes = [
     {
         path: '/Qyp_collect',
         name: 'Qyp_collect',
-        meta:{title:'我的收藏'},
+        meta:{
+            title:'我的收藏',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_collect.vue')
     },
     //qyp课程订单
     {
         path: '/Qyp_order_lesson',
         name: 'Qyp_order_lesson',
-        meta:{title:'课程订单'},
+        meta:{
+            title:'课程订单',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_order_lesson.vue')
     },
     //会员订单
     {
         path: '/Qyp_order_vip',
         name: 'Qyp_order_vip',
-        meta:{title:'会员订单'},
+        meta:{
+            title:'会员订单',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_order_vip.vue')
     },
     //qyp约课订单
     {
         path: '/Qyp_order_Appointment',
         name: 'Qyp_order_Appointment',
-        meta:{title:'约课订单'},
+        meta:{
+            title:'约课订单',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_order_Appointment.vue')
     },
     //qyp优惠卷
     {
         path: '/Qyp_youhui',
         name: 'Qyp_youhui',
-        meta:{title:'优惠卷'},
+        meta:{
+            title:'优惠卷',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_youhui.vue')
     },
     //qyp学习卡
     {
         path: '/Qyp_style',
         name: 'Qyp_style',
-        meta:{title:'学习卡'},
+        meta:{
+            title:'学习卡',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_style.vue')
     },
     //qyp会员
     {
         path: '/Qyp_vip',
         name: 'Qyp_vip',
-        meta:{title:'会员'},
+        meta:{
+            title:'会员',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_vip.vue')
     },
     //qyp我的消息
     {
         path: '/Qyp_msg',
         name: 'Qyp_msg',
-        meta:{title:'我的消息'},
+        meta:{
+            title:'我的消息',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_msg.vue')
     },
     //qyp意见反馈
@@ -161,7 +191,10 @@ const routes = [
     {
         path: '/Qyp_msg_edit',
         name: 'Qyp_msg_edit',
-        meta:{title:'信息编写'},
+        meta:{
+            title:'信息编写',
+            isRequireLogin:true
+        },
         component: () => import('@/views/itemPage/login/Qyp_msg_edit.vue')
     }
 ]

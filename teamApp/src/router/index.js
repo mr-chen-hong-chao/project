@@ -6,6 +6,8 @@ import MainRouter from './mainRouter'
 // 项目页面路由
 import ItemRouter from './itemRouter'
 import store from '@/store'
+import { Toast } from "vant";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -34,11 +36,10 @@ VueRouter.prototype.push = function push(location) {
   }
   return routerPush.call(this, location).catch(error=> error)
 }
+
 router.beforeEach((to, from, next) => {
-    console.log(to);
     if (to.matched.some(route => route.meta.isRequireLogin)) {
-    
-      if (store.state.token) {
+      if (localStorage.getItem('token')) {
         next()
       } else {
         Toast('您还没有登录，请登录！')

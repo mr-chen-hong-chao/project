@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { Toast } from "vant";
 import {mapMutations} from 'vuex'
 export default {
   name: '',
@@ -33,7 +34,16 @@ props:[],
           this.$router.push('/seacher')
       },
       clickLogin(){
-          this.$router.push('/login')
+          if(localStorage.getItem('token')){
+              Toast({
+          message: "已登录，无需重复登录",
+          icon: "fail",
+          duration: 600,
+        })
+          }else{
+            this.$router.push('/login')  
+          }
+          
       },
       clickEmail(){
           this.tabEmailState()

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @touchstart='start' @touchmove='move' @touchend='end'>
     <router-view />
     <email-btn></email-btn>
     <popup :popShow='emailState' @hide='tabHide()'></popup>
@@ -14,7 +14,8 @@
   export default {
     data() {
       return {
-        
+        startX:null,
+        endX:null
       }
     },
     computed:{
@@ -26,6 +27,20 @@
       Loading
     },
     methods: {
+      start(e){
+        this.startX = e.touches[0].pageX
+      },
+      move(e){
+        this.endX = e.touches[0].pageX
+      },
+      end(e){
+        let val =this.endX - this.startX 
+        if(val >=50){
+          this.$router.go(-1)
+        }else if(val <=50 && val >=30){
+          this.$router.go(1)
+        }
+      }
     },
     
     
@@ -38,5 +53,6 @@
     -moz-osx-font-smoothing: grayscale;
     width: 100%;
     height: 100%;
+    padding: 0.1rem;
   }
 </style>

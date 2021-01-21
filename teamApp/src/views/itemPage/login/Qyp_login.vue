@@ -42,6 +42,7 @@
 import thirds from "@/components/Qyp_login_third party";
 import { getLogin } from "@/utils/api";
 import { Toast } from "vant";
+import { mapState, mapMutations } from "vuex";
 export default {
   components: {
     thirds,
@@ -52,8 +53,12 @@ export default {
       password: "",
     };
   },
+  computed: {
+    ...mapState(["user"]),
+  },
   mounted() {},
   methods: {
+    ...mapMutations(["getLoginInfo"]),
     // 登录
     login() {
       // let val = {
@@ -64,16 +69,21 @@ export default {
       getLogin({
         mobile: this.mobile,
         password: this.password,
-        type:1
-        }).then((res) => {
-          console.log(res);
-        Toast('登陆成功');
-        // if (res.data.code == 200) {
-          localStorage.setItem("token", res.data.remember_token);
-          this.$router.push("/");
-        // } else {
-          // Toast.fail(res.data.msg);
-        // }
+        type: 1,
+      }).then((res) => {
+        if (res.code === 200) {
+          Toast.success('登录成功')
+          localStorage.setItem("token", res.data.remember_token)
+          let val = {
+            userName: res.data.login_name,
+            userImg: res.data.avatar,
+            token: res.data.remember_token,
+          }
+          this.getLoginInfo(val);
+          this.$router.back();
+        } else {
+          Toast.fail(res.msg);
+        }
       });
     },
     toRegister() {

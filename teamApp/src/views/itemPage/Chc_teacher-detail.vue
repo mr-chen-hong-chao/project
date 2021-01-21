@@ -15,7 +15,7 @@
         <!-- 信息介绍 -->
         <div class="teacher-module">
           <h3>{{ teacher.real_name }}老师</h3>
-          <p>
+          <p class="text-overflow-ell">
             {{ teacher.introduction }}
             <!-- <span>{{ teacher.sex }}</span>
             <span>{{ teacher.age }}岁</span>
@@ -275,7 +275,15 @@ export default {
     },
     // 点击关注，切换状态
     clickFocus() {
-      tabFocus(this.$route.query.id).then((res) => {
+      if(!localStorage.getItem('token')){
+        this.$router.push('/login')
+        Toast({
+          message: "还未登录",
+          icon: "fail",
+          duration: 600,
+        })
+      }else{
+        tabFocus(this.$route.query.id).then((res) => {
         this.isFocus(res);
       });
       // this.focusState = !this.focusState
@@ -292,6 +300,8 @@ export default {
           duration: 600,
         });
       }
+      }
+      
     },
     //信息切换
     tab(i) {

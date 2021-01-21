@@ -1,8 +1,8 @@
 <template>
     <div id='Chc_bottom_nav'>
         <ul>
-            <li v-for="(item,i) in nav" :key="i" @click="tab(i,item.path)"
-                :style="bottomNavIndex ==i?'color:orange':'color:'">
+            <li v-for="(item,i) in nav" :key="i" @click="tab(item.path)"
+                :style="defaultIndex ==item.path?'color:orange':'color:'">
                 <img :src="item.icon" alt="">
                 <span>{{item.title}}</span>
             </li>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {mapState,mapMutations} from 'vuex'
+// import {mapState,mapMutations} from 'vuex'
     export default {
         name: '',
         data() {
@@ -42,6 +42,7 @@ import {mapState,mapMutations} from 'vuex'
                         path: '/user'
                     },
                 ],
+                defaultIndex:''
 
             }
         },
@@ -50,22 +51,28 @@ import {mapState,mapMutations} from 'vuex'
         },
         props: [],
         computed: {
-            ...mapState(['bottomNavIndex'])
+            // ...mapState(['bottomNavIndex'])
         },
         created() {
-
+            this.defaultIndex = this.nav[0].path
         },
         methods: {
-            ...mapMutations(['tabBottomNav']),
-            tab(i, path) {
-                this.defaultIndex = i
+            // ...mapMutations(['tabBottomNav']),
+            tab(path) {
+                this.defaultIndex = path
                 this.$router.push({
                     path: path
                 })
-                this.tabBottomNav(i)
+                // this.tabBottomNav(path)
 
             }
         },
+        watch:{
+            $route(to){
+                this.defaultIndex  = to.path
+                
+            }
+        }
     }
 </script>
 
