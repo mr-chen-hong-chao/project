@@ -21,7 +21,7 @@ export default {
     },
     //切换loading状态
     tabLoadingShow(state, val) {
-        console.log(val)
+        // console.log(val)
         state.loadingShow = val
     },
     //获取用户信息

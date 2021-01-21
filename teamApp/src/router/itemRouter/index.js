@@ -27,7 +27,6 @@ const routes = [
         component: () => import('@/views/itemPage/Chc_calendar')
     },
     {
-<<<<<<< HEAD
         path: '/free', //免费和详情
         name: 'free',
         meta: {
@@ -35,21 +34,6 @@ const routes = [
 
         },
         component: () => import('@/views/itemPage/Free')
-=======
-        path: '/teacherList',
-        name: 'teacherList',
-        meta:{
-            title:'名师阵容'
-        },
-        component: () => import('@/views/itemPage/Chc_teacherList')
-    },
-
-    {
-        path:'/free', //免费和详情
-        name:'free',
-        meta:{title:'详情'},
-        component:()=>import('@/views/itemPage/Free')
->>>>>>> 48607d7d3398f3b5432f3b9da2a592de9871712b
     },
     {
         path: '/search', //搜索
@@ -74,6 +58,11 @@ const routes = [
             title: '题库选择'
         },
         component: () => import('@/views/itemPage/Zpy_testContent')
+    },
+    {
+        path: '/book', //题库选择图书跳详情
+        name: 'book',
+        component: () => import('@/views/itemPage/Zpy_book')
     },
 
 

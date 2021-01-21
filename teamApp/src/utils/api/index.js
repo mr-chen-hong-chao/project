@@ -39,6 +39,11 @@ const getList = async function(){
     let {data} = await server.get('/api/app/book/list/0?page=1&limit=10&order=id&')
     return Promise.resolve(data.data)
 }
+//图书详情
+const getBook = async function(id){
+    let {data} = await server.get(`/api/app/book/detail/${id}?`)
+    return Promise.resolve(data.data)
+}
 //请求老师详情
 const getTeacherDetail = async function(val){
     let {data} =  await server.get('/api/app/teacher/'+val)
@@ -61,11 +66,7 @@ const getLesson = async function(val){
 }
 //测试公用接口
 const getPublic = async function(){
-<<<<<<< HEAD
     let data = await server.get('/api/app/recommend/appIndex')
-=======
-    let {data} = await server.get('/api/app/recommend/appIndex')
->>>>>>> 48607d7d3398f3b5432f3b9da2a592de9871712b
     return Promise.resolve(data)
 }
 //登录
@@ -95,16 +96,10 @@ export {
     getFocus,
     getChange,//筛选
     getLesson,//课程
-<<<<<<< HEAD
     getClassify,//练习
     getList,//练习 考点专练内容
-=======
-<<<<<<< HEAD
+    getBook,//图书
     getLogin, //登录
     getSmsCode,//验证码登录
     password,//设置密码
-=======
-    getSay,
->>>>>>> 48607d7d3398f3b5432f3b9da2a592de9871712b
->>>>>>> a67ee1dbee30c991809b37adeaa4203f0270d79c
 }

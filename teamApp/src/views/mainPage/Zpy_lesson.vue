@@ -56,44 +56,51 @@
     </div>
     <div class="Zpy_body">
       <div class="Zpy_teacher_content">
-        <ul>
-          <li
-            v-for="(item, index) in teacherList"
-            :key="index"
-            @click="Zpy_content_detail(item.id,item.has_buy)"
-          >
-            <p class="Zpy_title">{{ item.title }}</p>
-            <p>
-              {{ item.start_play_date | filterTime }}&emsp;{{
-                item.end_play_date | filterTime
-              }}
-            </p>
-            <p>共{{ item.total_periods }}课时</p>
-            <div class="Zpy_img">
-              <img :src="item.cover_img" alt="" class="Zpy_teacherImg" />
-              &emsp;&emsp;
-              <span class="Zpy_name">{{
-                item.teachers_list[0].teacher_name
-              }}</span>
-            </div>
-            <p class="Zpy_num">
-              {{ item.sales_num }}人已报名
-              <span class="Zpy_price">价格{{ item.price }}</span>
-              <span class="Zpy_free" @click.stop="Zpy_free(item.id)">免费</span>
-              <sign class="sign" v-if="item.has_buy" ></sign>
-            </p>
-          </li>
-        </ul>
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          :immediate-check="false"
+          @load="onLoad"
+        >
+          <ul>
+            <li
+              v-for="(item, index) in teacherList"
+              :key="index"
+              @click="Zpy_content_detail(item.id, item.has_buy)"
+            >
+              <p class="Zpy_title">{{ item.title }}</p>
+              <p>
+                {{ item.start_play_date | filterTime }}&emsp;{{
+                  item.end_play_date | filterTime
+                }}
+              </p>
+              <p>共{{ item.total_periods }}课时</p>
+              <div class="Zpy_img">
+                <img :src="item.cover_img" alt="" class="Zpy_teacherImg" />
+                &emsp;&emsp;
+                <span class="Zpy_name">{{
+                  item.teachers_list[0].teacher_name
+                }}</span>
+              </div>
+              <p class="Zpy_num">
+                {{ item.sales_num }}人已报名
+                <span class="Zpy_price">价格{{ item.price }}</span>
+                <span class="Zpy_free" @click.stop="Zpy_free(item.id)"
+                  >免费</span
+                >
+                <sign class="sign" v-if="item.has_buy"></sign>
+              </p>
+            </li>
+          </ul>
+        </van-list>
       </div>
     </div>
   </div>
 </template>
 <script>
-<<<<<<< HEAD
-import Sign from '@/components/Sign'
-=======
-import AppBanner from '@/components/Chc_app_banner'
->>>>>>> a67ee1dbee30c991809b37adeaa4203f0270d79c
+import Sign from "@/components/Sign";
+import AppBanner from "@/components/Chc_app_banner";
 import { getPublic, getChange, getLesson } from "@/utils/api";
 export default {
   data() {
@@ -105,16 +112,16 @@ export default {
       isShow: false,
       isShow2: false,
       Zpy_changeList: [], //筛选
-      Zpy_Type:[],//筛选类型
-      list:[],
+      Zpy_Type: [], //筛选类型
+      loading: false,
+      finished: false,
+      page: 1,
+      limit: 10,
     };
   },
-  components:{
-<<<<<<< HEAD
-    Sign
-=======
+  components: {
+    Sign,
     AppBanner,
->>>>>>> a67ee1dbee30c991809b37adeaa4203f0270d79c
   },
   filters: {
     filterTime(val) {
@@ -142,19 +149,34 @@ export default {
       return y + "年" + mm + "月" + d + "日" + " " + h + ":" + m;
     },
   },
-  created() {
-    
-  },
+  created() {},
   methods: {
+    onLoad() {
+      this.Zpy_getMoreClass();
+      
+    },
+    //获取更多课程数据
+    Zpy_getMoreClass() {
+      this.page++;
+      getLesson({ page: this.page, limit: this.limit }).then((res) => {
+        console.log(res);
+        if (res.length == 0) {
+          this.finished = true; //不在加载
+        }
+        this.teacherList=this.teacherList.concat(res);
+        this.loading = false; //关闭loading
+        console.log(this.teacherList);
+      });
+    },
     Zpy_search() {
       this.$router.push({ path: "/search" });
     },
     Zpy_free(id) {
-      // console.log(id);
+      console.log(id);
       this.$router.push({ path: "/free", query: { id: id } });
     },
-    Zpy_content_detail(id,buy) {
-      this.$router.push({ name: "free", params: { id: id ,buy:buy} });
+    Zpy_content_detail(id, buy) {
+      this.$router.push({ name: "free", query: { id: id, buy: buy } });
     },
     //分类弹框
     Zpy_type() {
@@ -205,40 +227,42 @@ export default {
       this.isShow2 = true;
     },
     //筛选类型
-    Zpy_changeType(index){
-      if(!index){
-        this.teacherList=this.teacherListAll
-      }else{
-        this.teacherList=[]
-      this.teacherListAll.forEach(item=>{
-        
-        if(item.course_type==index){
-          // console.log(index);
-          this.teacherList.push(item)
-        }
-      })
+    Zpy_changeType(index) {
+      if (!index) {
+        this.teacherList = this.teacherListAll;
+      } else {
+        this.teacherList = [];
+        this.teacherListAll.forEach((item) => {
+          if (item.course_type == index) {
+            // console.log(index);
+            this.teacherList.push(item);
+          }
+        });
       }
-      
-      console.log(this.teacherList)
-    }
+
+      console.log(this.teacherList);
+    },
   },
   mounted() {
     //筛选
     getChange().then((res) => {
-      // console.log(res.appCourseType);
+      // console.log(res);
       this.Zpy_changeList = res.appCourseType;
-      this.Zpy_Type=res.courseTypes
+      this.Zpy_Type = res.courseTypes;
       // console.log(res.courseTypes);
     });
-    getLesson().then((res) => {
-      // console.log(res.list);
-      this.teacherList = res.list;
-      this.teacherListAll = res.list;
+    getLesson({ page: 1, limit: 5 }).then((res) => {
+      console.log(res);
+      this.teacherList = res;
+      this.teacherListAll = res;
     });
   },
 };
 </script>
 <style lang="scss" scoped>
+// [v-cloak]{
+//   display: none;
+// }
 #Zpy_lesson {
   width: 100%;
   position: relative;
@@ -247,9 +271,6 @@ export default {
     width: 100%;
     background-color: white;
     height: 2rem;
-    // position: fixed;
-    // top: 0;
-    // left: 0;
     .Zpy_type {
       height: 1rem;
       line-height: 1rem;
@@ -371,7 +392,7 @@ export default {
               font-size: 0.33rem;
               margin-left: 1.5rem;
             }
-            .sign{
+            .sign {
               float: right;
               margin-right: 0.5rem;
             }

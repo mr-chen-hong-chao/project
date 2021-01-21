@@ -66,7 +66,7 @@ export default {
     });
     //专练列表内容
     getList().then((res) => {
-      console.log(res);
+      // console.log(res);
       this.Zpy_List = res.list;
     });
   },
@@ -91,7 +91,7 @@ export default {
     },
     Zpy_time() {},
     Zpy_goDeatil(id){
-      this.$router.push()
+      this.$router.push({path:'/book',query:{id}})
     }
   },
 };
